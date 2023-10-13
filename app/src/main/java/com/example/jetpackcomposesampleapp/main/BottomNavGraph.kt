@@ -1,13 +1,13 @@
-package com.example.jetpackcomposesampleapp
+package com.example.jetpackcomposesampleapp.main
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.jetpackcomposesampleapp.screens.HomeScreen
-import com.example.jetpackcomposesampleapp.screens.ProfileScreen
-import com.example.jetpackcomposesampleapp.screens.SettingsScreen
+import com.example.jetpackcomposesampleapp.home.HomeScreen
+import com.example.jetpackcomposesampleapp.offer.OfferScreen
+import com.example.jetpackcomposesampleapp.order.OrderScreen
+import com.example.jetpackcomposesampleapp.setting.SettingsScreen
 
 @Composable
 fun BottomNavGraph(navController: NavHostController) {
@@ -17,13 +17,18 @@ fun BottomNavGraph(navController: NavHostController) {
             HomeScreen()
         }
 
-        composable(route = BottomBarScreen.Profile.route){
-            ProfileScreen()
+        composable(route = BottomBarScreen.Order.route){
+            OrderScreen()
+        }
+
+        composable(route = BottomBarScreen.Offer.route){
+            OfferScreen()
         }
 
         composable(route = BottomBarScreen.Setting.route){
             SettingsScreen()
         }
+
     }
     
 }

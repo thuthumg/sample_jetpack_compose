@@ -1,4 +1,4 @@
-package com.example.jetpackcomposesampleapp.screens
+package com.example.jetpackcomposesampleapp.setting
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,24 +12,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ProfileScreen() {
+fun SettingsScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Blue),
+            .background(Color.Red),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "PROFILE",
+            text = "SETTINGS",
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
-        // fontSize = MaterialTheme.typography.h3.fontSize,
+
+      //  fontSize = MaterialTheme.typography.h3.fontSize,
     }
 }
 
 @Composable
 @Preview
-fun ProfileScreenPreview() {
-    ProfileScreen()
+fun SettingsScreenPreview() {
+    SettingsScreen()
 }

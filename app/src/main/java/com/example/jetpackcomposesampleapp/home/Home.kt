@@ -1,15 +1,13 @@
-package com.example.jetpackcomposesampleapp.screens
+package com.example.jetpackcomposesampleapp.home
 
-import android.media.Image
-import androidx.annotation.DrawableRes
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,10 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -31,18 +27,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -54,107 +43,131 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jetpackcomposesampleapp.category.CategoriesActivity
+
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppSecondaryColor
+val headerHeight = 200.dp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
+  //  val navController1 = rememberNavController()
+    val headerHeightPx = with(LocalDensity.current) { headerHeight.toPx() }
 
-   // val shape = CircleShape
 
-    Box(
-        modifier = Modifier
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+
+    ) {
+
+            innerPadding ->
+
+
+
+        Box(modifier = Modifier
+            .padding(innerPadding)
             .fillMaxSize()
             .background(AppMainColor)
-           // .padding(16.dp)
-          //  .background(Color.Magenta),
-        //contentAlignment = Alignment.Center
-    ) {
-        Column {
-            Text(
-                modifier = Modifier.padding(16.dp,16.dp,0.dp,0.dp),
-                textAlign = TextAlign.Start,
-                text = "Hello",
-                fontWeight = FontWeight.W300,
-                color = Color.White,
-                fontSize = 18.sp
-            )
-            Text(
-                modifier = Modifier.padding(16.dp,0.dp,0.dp,0.dp),
-                textAlign = TextAlign.Start,
-                text = "Lets search your grocery food",
-                fontWeight = FontWeight.W300,
-                color = Color.White,
-                fontSize = 18.sp
-            )
+            .verticalScroll(rememberScrollState())){
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(headerHeight)){
+                Column() {
+                    Text(
+                        modifier = Modifier.padding(16.dp,16.dp,0.dp,0.dp),
+                        textAlign = TextAlign.Start,
+                        text = "Hello",
+                        fontWeight = FontWeight.W300,
+                        color = Color.White,
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        modifier = Modifier.padding(16.dp,0.dp,0.dp,0.dp),
+                        textAlign = TextAlign.Start,
+                        text = "Lets search your grocery food",
+                        fontWeight = FontWeight.W300,
+                        color = Color.White,
+                        fontSize = 18.sp
+                    )
+                    SearchBar()
+                    //  BodyUI()
+                }
+                /*    Box(
+                        Modifier
+                            .fillMaxSize()
+                            .background(
+                                brush = Brush.verticalGradient(
+                                    colors = listOf(Color.Transparent, Color(0xAA000000)),
+                                    startY = 3 * headerHeightPx / 4 // to wrap the title only
+                                )
+                            )
+                    )*/
+            }
 
-//            Text(
-//                text = "Text 1",
-//                style = TextStyle(
-//                    color = Color.White,
-//                    fontWeight = FontWeight.Bold,
-//                    textAlign = TextAlign.Center),
-//                modifier = Modifier.fillMaxWidth()
-//                    .padding(16.dp)
-//                    .border(2.dp, MaterialTheme.colorScheme.secondary, shape)
-//                    .background(MaterialTheme.colorScheme.primary, shape)
-//                    .padding(16.dp)
-//            )
-            SearchBar()
             BodyUI()
+
         }
 
     }
+
+
+
 }
 
 @Composable
 fun BodyUI() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(0.dp, 8.dp, 0.dp, 0.dp),
-
-        shape = RoundedCornerShape(30.dp,30.dp,0.dp,0.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = AppBackgroundColor,
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
-        )
-
-    ) {
-        Column(
+    Column {
+        Spacer(modifier =Modifier.height(headerHeight))
+        Card(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(4.dp)
-                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+                .padding(0.dp, 8.dp, 0.dp, 0.dp),
+
+            shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = AppBackgroundColor,
+            ),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 10.dp
+            )
 
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp)
+                   // .verticalScroll(rememberScrollState())
 
-            CategoryUI()
+            ) {
 
-            RecyclerViewForDiscount()
+                CategoryUI()
 
-            PopularDeals()
-            Spacer(modifier = Modifier.height(64.dp))
+                RecyclerViewForDiscount()
+
+                PopularDeals()
+
+                Spacer(modifier = Modifier.height(75.dp))
+            }
         }
     }
 }
 
 @Composable
 fun CategoryUI() {
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -209,7 +222,14 @@ fun CategoryUI() {
 
                 Text(
                     modifier = Modifier
-                    .padding(0.dp,8.dp,8.dp,0.dp),
+                        .padding(0.dp, 8.dp, 8.dp, 0.dp)
+                        .clickable {
+
+
+                            val intent = Intent(context, CategoriesActivity::class.java)
+                            context.startActivity(intent)
+                            // NavigationScreen(navController = navController)
+                        },
                     textAlign = TextAlign.End,
                     text = "See all",
                     fontWeight = FontWeight.W600,
@@ -226,13 +246,14 @@ fun CategoryUI() {
 
    }
 }
+
 @Composable
 fun PopularDeals() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             //.fillMaxHeight()
-            .height(250.dp)
+            .height(235.dp)
             .padding(8.dp)
             .height(70.dp)
             .padding(0.dp, 8.dp, 0.dp, 0.dp),
@@ -322,12 +343,12 @@ fun HorizontalDivider() {
 
 }
 
-@Composable
-@Preview
-fun HomeScreenPreview() {
-    HomeScreen()
-
-}
+//@Composable
+//@Preview
+//fun HomeScreenPreview() {
+//    HomeScreen()
+//
+//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -561,7 +582,7 @@ fun CardWithPopularImage(imagePainter: Painter) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-               // .padding(16.dp)
+                // .padding(16.dp)
                 .height(80.dp),
             contentScale = ContentScale.Crop
         )
@@ -607,13 +628,16 @@ fun CardWithImageDiscount(imagePainter: Painter) {
             painter = imagePainter,
             contentDescription = null,
             modifier = Modifier
-                .width(200.dp)
-               // .padding(16.dp)
-                .height(100.dp),
+                .width(300.dp)
+                // .padding(16.dp)
+                .height(130.dp),
             contentScale = ContentScale.Crop
         )
     }
 }
+
+
+
 
 
 
