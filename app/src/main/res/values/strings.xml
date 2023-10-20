@@ -2,4 +2,13 @@
     <string name="app_name">JetpackComposeSampleApp</string>
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_cart">CartActivity</string>
+    <string name="title_activity_detail_screen">DetailScreenActivity</string>
+    <string name="title_activity_details_screen">DetailsScreenActivity</string>
+    <string name="title_activity_review_tab_screen">ReviewTabScreenActivity</string>
+    <string name="similar_products">Similar products</string>
+    <string name="lbl_hello">Hello</string>
+    <string name="lbl_lets_search_your_grocery_food">Lets search your grocery food</string>
+    <string name="lbl_categories">Categories</string>
+    <string name="lbl_see_all">See all</string>
+    <string name="lbl_popular_deals">Popular deals</string>
 </resources>

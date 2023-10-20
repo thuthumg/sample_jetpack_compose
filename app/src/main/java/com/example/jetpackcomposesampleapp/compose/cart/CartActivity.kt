@@ -1,4 +1,4 @@
-package com.example.jetpackcomposesampleapp
+package com.example.jetpackcomposesampleapp.compose.cart
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.jetpackcomposesampleapp.compose.main.MainScreen
 import com.example.jetpackcomposesampleapp.ui.theme.JetpackComposeSampleAppTheme
 
-class MainActivity : ComponentActivity() {
+class CartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,17 +22,26 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                   // Greeting3("Android")
+                    CartScreen()
                 }
             }
         }
     }
 }
 
+@Composable
+fun Greeting3(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun GreetingPreview3() {
     JetpackComposeSampleAppTheme {
-        MainScreen()
+        Greeting3("Android")
     }
 }

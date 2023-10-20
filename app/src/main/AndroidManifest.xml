@@ -12,13 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JetpackComposeSampleApp"
         tools:targetApi="31" >
+
         <activity
-            android:name=".cart.CartActivity"
+            android:name=".compose.detail.DetailScreenActivity"
+            android:exported="false"
+            android:label="@string/title_activity_detail_screen"
+            android:theme="@style/Theme.JetpackComposeSampleApp" />
+        <activity
+            android:name=".compose.cart.CartActivity"
             android:exported="false"
             android:label="@string/title_activity_cart"
             android:theme="@style/Theme.JetpackComposeSampleApp" />
         <activity
-            android:name=".category.CategoriesActivity"
+            android:name=".compose.category.CategoriesActivity"
             android:exported="false"
             android:label="@string/title_activity_categories"
             android:theme="@style/Theme.JetpackComposeSampleApp" />
