@@ -1,4 +1,4 @@
-package com.example.jetpackcomposesampleapp.compose.cart.modal
+package com.example.jetpackcomposesampleapp.data.vos
 
 data class ItemModal(
     val itemName : String,

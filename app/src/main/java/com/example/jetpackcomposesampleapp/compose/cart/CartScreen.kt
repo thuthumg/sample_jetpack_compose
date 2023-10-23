@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.cart.modal.ItemModal
+import com.example.jetpackcomposesampleapp.data.vos.ItemModal
 import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.util.itemList

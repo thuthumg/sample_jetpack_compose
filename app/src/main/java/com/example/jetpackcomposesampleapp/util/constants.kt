@@ -1,8 +1,8 @@
 package com.example.jetpackcomposesampleapp.util
 
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.cart.modal.ItemModal
-import com.example.jetpackcomposesampleapp.compose.category.modal.CategoryModal
+import com.example.jetpackcomposesampleapp.data.vos.ItemModal
+import com.example.jetpackcomposesampleapp.data.vos.CategoryModal
 
 var itemList: List<ItemModal> =
     listOf(

@@ -42,28 +42,28 @@ import com.example.jetpackcomposesampleapp.ui.theme.AppSecondaryColor
 
 @Composable
 fun HomeBodyView() {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    0.dp,
-                    dimensionResource(id = R.dimen.margin_medium),
-                    0.dp,
-                    0.dp
-                ),
-            shape = RoundedCornerShape(
-                topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
-                topEnd =  dimensionResource(id = R.dimen.dimen_card_corner_radius),
-                bottomEnd = 0.dp,
-                bottomStart = 0.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = AppBackgroundColor,
-            ),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation)
-            )
-
-        ) {
+//        Card(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(
+//                    0.dp,
+//                    dimensionResource(id = R.dimen.margin_medium),
+//                    0.dp,
+//                    0.dp
+//                ),
+//            shape = RoundedCornerShape(
+//                topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
+//                topEnd =  dimensionResource(id = R.dimen.dimen_card_corner_radius),
+//                bottomEnd = 0.dp,
+//                bottomStart = 0.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = AppBackgroundColor,
+//            ),
+//            elevation = CardDefaults.cardElevation(
+//                defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation)
+//            )
+//
+//        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -78,7 +78,7 @@ fun HomeBodyView() {
                 PopularDealsListView()
                 Spacer(modifier = Modifier.height(75.dp))
             }
-        }
+       // }
 
 }
 

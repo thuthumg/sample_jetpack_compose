@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.jetpackcomposesampleapp.compose.main.MainScreen
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.ui.theme.JetpackComposeSampleAppTheme
 
@@ -27,6 +28,13 @@ class CategoriesActivity : ComponentActivity() {
                 }
             }
         }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    JetpackComposeSampleAppTheme {
+        CategoriesScreen()
     }
 }
 

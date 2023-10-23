@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -158,6 +159,7 @@ private fun PopularDealsItemListSection(){
 private fun CardWithPopularImage(imagePainter: Painter) {
     Card(
         modifier = Modifier
+            .width(200.dp)
             .padding(dimensionResource(id = R.dimen.margin_medium_2)),
         colors = CardDefaults.cardColors(
             containerColor = AppSecondaryColor,
@@ -172,7 +174,7 @@ private fun CardWithPopularImage(imagePainter: Painter) {
             modifier = Modifier
                 .fillMaxWidth()
                 // .padding(16.dp)
-                .height(80.dp),
+                .height(100.dp),
             contentScale = ContentScale.Crop
         )
     }

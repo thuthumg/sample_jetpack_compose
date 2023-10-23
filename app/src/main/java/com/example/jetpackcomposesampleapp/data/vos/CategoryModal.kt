@@ -1,4 +1,4 @@
-package com.example.jetpackcomposesampleapp.compose.category.modal
+package com.example.jetpackcomposesampleapp.data.vos
 
 data class CategoryModal(
     val categoryName : String,
