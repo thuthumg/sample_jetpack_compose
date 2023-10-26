@@ -1,7 +1,7 @@
 package com.example.jetpackcomposesampleapp.compose.offer
 
-import android.content.Intent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,19 +38,20 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.offer.discountdetail.DiscountDetailActivity
 import com.example.jetpackcomposesampleapp.data.vos.DiscountCardItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.util.discountCardItemList
 import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 
 @Composable
-fun OfferScreen() {
+fun OfferScreen(
+    onDiscountItemClick: (DiscountCardItemVO)-> Unit
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = AppMainColor//MaterialTheme.colorScheme.background
     ){
-        OfferLayout()
+        OfferLayout(onDiscountItemClick)
     }
 
 
@@ -58,14 +59,14 @@ fun OfferScreen() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun OfferLayout() {
+private fun OfferLayout(onDiscountItemClick: (DiscountCardItemVO) -> Unit) {
     Scaffold(
      containerColor = AppMainColor,
      topBar = {
          OfferTopAppBar()
      }
     ) { innerPaddingValues->
-        OfferContentLayout(innerPaddingValues)
+        OfferContentLayout(innerPaddingValues,onDiscountItemClick)
 
 
     }
@@ -74,7 +75,8 @@ private fun OfferLayout() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun OfferContentLayout(innerPaddingValues: PaddingValues) {
+private fun OfferContentLayout(innerPaddingValues: PaddingValues,
+                               onDiscountItemClick: (DiscountCardItemVO) -> Unit) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -93,27 +95,27 @@ private fun OfferContentLayout(innerPaddingValues: PaddingValues) {
         elevation = CardDefaults.cardElevation(
             defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation),
         ),
-        onClick = {
-            val intent = Intent(context, DiscountDetailActivity::class.java)
-            context.startActivity(intent)
-        }
+//        onClick = {
+//            val intent = Intent(context, DiscountDetailActivity::class.java)
+//            context.startActivity(intent)
+//        }
 
         ) {
 
-        OffersListLayout()
+        OffersListLayout(onDiscountItemClick)
 
 
     }
 }
 
 @Composable
-private fun OffersListLayout() {
+private fun OffersListLayout(onDiscountItemClick: (DiscountCardItemVO) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(16.dp)
     ) {
         items(discountCardItemList.size) { position->
-            EachDiscountItemLayout(discountCardItemList[position])
+            EachDiscountItemLayout(discountCardItemList[position],onDiscountItemClick)
         }
     }
 }
@@ -137,11 +139,17 @@ private fun OfferTopAppBar() {
 }
 
 @Composable
-private fun EachDiscountItemLayout(discountCardItemVO: DiscountCardItemVO) {
+private fun EachDiscountItemLayout(
+    discountCardItemVO: DiscountCardItemVO,
+    onDiscountItemClick: (DiscountCardItemVO) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.margin_medium)),
+            .padding(dimensionResource(id = R.dimen.margin_medium)).
+            clickable{
+            onDiscountItemClick(discountCardItemVO)
+        },
 
         shape = RoundedCornerShape(
             topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
@@ -154,7 +162,7 @@ private fun EachDiscountItemLayout(discountCardItemVO: DiscountCardItemVO) {
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation),
-        ),
+        )
 
         ){
         Row(
@@ -258,5 +266,5 @@ private fun DiscountItemInformationLayout(discountCardItemVO: DiscountCardItemVO
 @Composable
 @Preview
 fun OfferScreenPreview() {
-    OfferScreen()
+    //OfferScreen()
 }

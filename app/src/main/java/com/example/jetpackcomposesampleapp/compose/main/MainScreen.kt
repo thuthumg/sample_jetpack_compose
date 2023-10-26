@@ -25,6 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
+import com.example.jetpackcomposesampleapp.data.vos.DiscountCardItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 
 
@@ -32,7 +33,8 @@ import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 @Composable
 fun MainScreen(
     onCategoryItemClick : (CategoryItemVO)->Unit,
-    onSeeAllClick : ()-> Unit
+    onSeeAllClick : ()-> Unit,
+    onDiscountItemClick : (DiscountCardItemVO) -> Unit
 ) {
     val childNavController = rememberNavController()
     Surface(
@@ -66,7 +68,8 @@ fun MainScreen(
                 BottomNavGraph(
                     navController = childNavController,
                     onCategoryItemClick = onCategoryItemClick,
-                    onSeeAllClick = onSeeAllClick)
+                    onSeeAllClick = onSeeAllClick,
+                    onDiscountItemClick = onDiscountItemClick)
             }
 
 

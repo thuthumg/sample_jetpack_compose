@@ -19,6 +19,7 @@ import com.example.jetpackcomposesampleapp.compose.category.CategoriesScreen
 import com.example.jetpackcomposesampleapp.compose.category.EachGroceryItemListScreen
 import com.example.jetpackcomposesampleapp.compose.detail.DetailScreen
 import com.example.jetpackcomposesampleapp.compose.main.MainScreen
+import com.example.jetpackcomposesampleapp.compose.offer.discountdetail.DiscountDetail
 import com.example.jetpackcomposesampleapp.ui.theme.GroceryAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -47,10 +48,14 @@ class MainActivity : ComponentActivity() {
                 MainScreen(
                    // navController = navController,
                     onCategoryItemClick = {
+                        Log.d("main act","check category id ${it.categoryId}")
                         navController.navigate("categoryDetail/${it.categoryId}/productList")
                     },
                     onSeeAllClick = {
                         navController.navigate("categoryList")
+                    },
+                    onDiscountItemClick = {
+                        navController.navigate("discountDetail")
                     }
                 )
             }
@@ -95,6 +100,16 @@ class MainActivity : ComponentActivity() {
                 DetailScreen(
                     pageState = true,
                     onBackClick = { navController.navigateUp() })
+            }
+            composable(
+                "discountDetail",
+
+                ) {
+                DiscountDetail(
+//                    onCategoryItemClick = {
+//                        navController.navigate("categoryDetail/${it.categoryId}/productList")
+//                    }
+                )
             }
             /* composable(
                 "gallery/{plantName}",

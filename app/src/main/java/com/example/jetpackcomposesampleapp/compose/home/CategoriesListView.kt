@@ -1,6 +1,7 @@
 package com.example.jetpackcomposesampleapp.compose.home
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -160,6 +161,7 @@ private fun CategoryItemListSection(onCategoryItemClick: (CategoryItemVO) -> Uni
             Column(
                 modifier = Modifier.fillMaxSize()
                     .clickable {
+                        Log.d("category","check category id")
                            onCategoryItemClick(categoriesList[position])
                 },
                 verticalArrangement = Arrangement.Center,
@@ -197,9 +199,10 @@ private fun CategoryImageSection(imagePainter: Painter) {
     Card(
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.margin_medium_2))
-            .clickable {
-                mContext.startActivity(DetailScreenActivity.newIntent(mContext,false))//Intent(mContext, DetailScreenActivity::class.java)
-            },
+//            .clickable {
+//                mContext.startActivity(DetailScreenActivity.newIntent(mContext,false))//Intent(mContext, DetailScreenActivity::class.java)
+//            }
+        ,
         colors = CardDefaults.cardColors(
             containerColor = AppSecondaryColor,
         ),
