@@ -2,6 +2,7 @@ package com.example.jetpackcomposesampleapp.compose.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -98,10 +99,14 @@ private fun SimilarProductTitleSection() {
 private fun SimilarProductItemList() {
 
     val productList: List<ProductItemVO> = listOf(
-        ProductItemVO("Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
-        ProductItemVO("Mango","4.25","$4.25/kg", R.drawable.mango_img,50),
-        ProductItemVO("Strawberry","1.60","$0.20/pc", R.drawable.strawberry_img,50),
-        ProductItemVO("Orange","17.00","$17.00/kg", R.drawable.orange_img,50),
+        ProductItemVO(1,"Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
+        ProductItemVO(2,"Mango","4.25","$4.25/kg", R.drawable.mango_img,50),
+        ProductItemVO(3,"Strawberry","1.60","$0.20/pc", R.drawable.strawberry_img,50),
+        ProductItemVO(4,"Orange","17.00","$17.00/kg", R.drawable.orange_img,50),
+        ProductItemVO(5,"Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
+        ProductItemVO(6,"Mango","4.25","$4.25/kg", R.drawable.mango_img,50),
+        ProductItemVO(7,"Strawberry","1.60","$0.20/pc", R.drawable.strawberry_img,50),
+        ProductItemVO(8,"Orange","17.00","$17.00/kg", R.drawable.orange_img,50),
         // ProductItemVO("Watermelon",1.6,"pc",R.drawable.watermelon_img,20)
 
     )
@@ -117,16 +122,24 @@ private fun SimilarProductItemList() {
 //rows * columns
         repeat(productList.size) {position->
 
-            SimilarProductEachItem(itemModifier,productList[position])
+            SimilarProductEachItem(itemModifier, productList[position], null)
         }
     }
 }
 
 @Composable
-private fun SimilarProductEachItem(modifier: Modifier, productItemVO: ProductItemVO) {
+fun SimilarProductEachItem(
+    modifier: Modifier,
+    productItemVO: ProductItemVO,
+    onGroceryItemClick: ((ProductItemVO, Int) -> Unit)?
+) {
     Card(
         modifier = modifier
-            .border(1.dp, Color.Gray.copy(0.1f)),
+            .border(1.dp, Color.Gray.copy(0.1f)).clickable {
+                if (onGroceryItemClick != null) {
+                    onGroceryItemClick(productItemVO,1)
+                }
+            },
         shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,

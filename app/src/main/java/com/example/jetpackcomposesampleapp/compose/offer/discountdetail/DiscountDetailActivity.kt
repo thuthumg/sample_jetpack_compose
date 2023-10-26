@@ -1,4 +1,4 @@
-package com.example.jetpackcomposesampleapp.compose.cart
+package com.example.jetpackcomposesampleapp.compose.offer.discountdetail
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.jetpackcomposesampleapp.ui.theme.GroceryAppTheme
 
-class CartActivity : ComponentActivity() {
+class DiscountDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,18 +21,19 @@ class CartActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                   // Greeting3("Android")
-                    CartScreen()
+                    DiscountDetail()
                 }
             }
         }
     }
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview3() {
+fun GreetingPreview2() {
     GroceryAppTheme {
-        CartScreen()
+        DiscountDetail()
     }
 }

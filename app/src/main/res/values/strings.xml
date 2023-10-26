@@ -12,4 +12,8 @@
     <string name="lbl_see_all">See all</string>
     <string name="lbl_popular_deals">Popular deals</string>
     <string name="lbl_offer">Offer</string>
+    <string name="lbl_order">Order</string>
+    <string name="lbl_setting">Setting</string>
+    <string name="title_activity_discount_detail">DiscountDetailActivity</string>
+    <string name="title_activity_each_grocery_item_list">EachGroceryItemListActivity</string>
 </resources>

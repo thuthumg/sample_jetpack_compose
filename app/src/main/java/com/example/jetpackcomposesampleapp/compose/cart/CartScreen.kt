@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.data.vos.ItemModal
+import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.util.itemList
@@ -102,7 +102,7 @@ fun CartScreen() {
 }
 
 @Composable
-fun selectedItemList(current: Context, innerPadding: PaddingValues, itemList: List<ItemModal>) {
+fun selectedItemList(current: Context, innerPadding: PaddingValues, itemList: List<EachGroceryItemVO>) {
 
 
     Card(
@@ -171,7 +171,7 @@ fun eachSelectedItemUI(
     position: Int,
     context: Context,
     innerPadding: PaddingValues,
-    itemList: List<ItemModal>
+    itemList: List<EachGroceryItemVO>
 ) {
 
     Card(

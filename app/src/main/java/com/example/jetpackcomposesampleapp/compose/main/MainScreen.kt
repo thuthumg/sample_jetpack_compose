@@ -1,7 +1,7 @@
 package com.example.jetpackcomposesampleapp.compose.main
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
@@ -25,35 +24,56 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackcomposesampleapp.R
+import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview(showBackground = true)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
-    val navController = rememberNavController()
-    Scaffold(
+fun MainScreen(
+    onCategoryItemClick : (CategoryItemVO)->Unit,
+    onSeeAllClick : ()-> Unit
+) {
+    val childNavController = rememberNavController()
+    Surface(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            BottomAppBar(
-                modifier = Modifier
-                   // .height(100.dp)
-                    .clip(RoundedCornerShape(
-                        dimensionResource(R.dimen.dimen_card_corner_radius),
-                        dimensionResource(R.dimen.dimen_card_corner_radius),
-                        0.dp,
-                        0.dp)),
-                    containerColor = AppMainColor,
-            ) {
-                BottomBar(navController = navController)
-            }
-        },
-
+        color = MaterialTheme.colorScheme.background
     ) {
-        BottomNavGraph(navController = navController)
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor = Color.White,
+            bottomBar = {
+                BottomAppBar(
+                    modifier = Modifier
+                        // .height(100.dp)
+                        .clip(RoundedCornerShape(
+                            dimensionResource(R.dimen.dimen_card_corner_radius),
+                            dimensionResource(R.dimen.dimen_card_corner_radius),
+                            0.dp,
+                            0.dp)),
+                    containerColor = AppMainColor,
+                ) {
+                    BottomBar(navController = childNavController)
+                }
+            },
 
+            )
+
+        { innerPadding ->
+
+            Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
+            {
+                BottomNavGraph(
+                    navController = childNavController,
+                    onCategoryItemClick = onCategoryItemClick,
+                    onSeeAllClick = onSeeAllClick)
+            }
+
+
+        }
     }
+
+
 }
 
 @Composable
@@ -74,7 +94,8 @@ fun BottomBar(navController: NavHostController) {
                 start = dimensionResource(R.dimen.margin_card_medium_2),
                 top = 0.dp,
                 end = dimensionResource(R.dimen.margin_card_medium_2),
-                bottom = 0.dp)
+                bottom = 0.dp
+            )
             .height(100.dp)
             .background((AppMainColor)),
         containerColor = Color.Transparent

@@ -1,6 +1,7 @@
 package com.example.jetpackcomposesampleapp.data.vos
 
-data class ItemModal(
+data class EachGroceryItemVO(
+    val itemId: Int,
     val itemName : String,
     val itemImage: Int,
     val itemPrice: String,

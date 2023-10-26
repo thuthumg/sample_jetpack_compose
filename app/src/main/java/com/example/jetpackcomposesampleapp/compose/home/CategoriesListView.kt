@@ -1,7 +1,6 @@
 package com.example.jetpackcomposesampleapp.compose.home
 
 import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,15 +30,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.category.CategoriesActivity
 import com.example.jetpackcomposesampleapp.compose.detail.DetailScreenActivity
+import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppSecondaryColor
 import com.example.jetpackcomposesampleapp.util.categoriesList
 import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 
 @Composable
-fun CategoriesListView() {
+fun CategoriesListView(
+    onCategoryItemClick: (CategoryItemVO) -> Unit,
+    onSeeAllClick: () -> Unit) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
@@ -64,9 +65,9 @@ fun CategoriesListView() {
                 .fillMaxSize(),
         ){
 
-            CategoryCardTitleSection(context)
+            CategoryCardTitleSection(context,onSeeAllClick)
             HorizontalDivider()
-            CategoryItemListSection()
+            CategoryItemListSection(onCategoryItemClick)
 
         }
 
@@ -74,7 +75,7 @@ fun CategoriesListView() {
 }
 
 @Composable
-private fun CategoryCardTitleSection(context: Context) {
+private fun CategoryCardTitleSection(context: Context, onSeeAllClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -85,13 +86,13 @@ private fun CategoryCardTitleSection(context: Context) {
     ) {
 
         CategoryTitleSection()
-        SeeAllSection(context)
+        SeeAllSection(context,onSeeAllClick)
 
     }
 }
 
 @Composable
-private fun SeeAllSection(context: Context) {
+private fun SeeAllSection(context: Context,onSeeAllClick: () -> Unit) {
     Text(
         modifier = Modifier
             .padding(
@@ -101,9 +102,9 @@ private fun SeeAllSection(context: Context) {
                 bottom = 0.dp
             )
             .clickable {
-
-                val intent = Intent(context, CategoriesActivity::class.java)
-                context.startActivity(intent)
+                onSeeAllClick()
+               // val intent = Intent(context, CategoriesActivity::class.java)
+              //  context.startActivity(intent)
                 // NavigationScreen(navController = navController)
             },
         textAlign = TextAlign.End,
@@ -150,14 +151,17 @@ fun HorizontalDivider() {
 
 }
 @Composable
-private fun CategoryItemListSection(){
+private fun CategoryItemListSection(onCategoryItemClick: (CategoryItemVO) -> Unit) {
     LazyRow(modifier = Modifier
         .fillMaxSize()
         .padding(vertical = dimensionResource(id = R.dimen.margin_small)) ){
         items(categoriesList.size){ position->
 
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize()
+                    .clickable {
+                           onCategoryItemClick(categoriesList[position])
+                },
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
                 CategoryImageSection(imagePainter = painterResource(id = categoriesList[position].categoryImage))
@@ -194,7 +198,7 @@ private fun CategoryImageSection(imagePainter: Painter) {
         modifier = Modifier
             .padding(dimensionResource(id = R.dimen.margin_medium_2))
             .clickable {
-                mContext.startActivity(Intent(mContext, DetailScreenActivity::class.java))
+                mContext.startActivity(DetailScreenActivity.newIntent(mContext,false))//Intent(mContext, DetailScreenActivity::class.java)
             },
         colors = CardDefaults.cardColors(
             containerColor = AppSecondaryColor,

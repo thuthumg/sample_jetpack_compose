@@ -16,6 +16,12 @@ val AppBackgroundColor = Color(0xFFE9F7EF)
 val AppCardColor = Color(0xFF71C796)
 //val AppCardColor = Color(0xFFF4F5F7)
 
+val DiscountColorOne = Color(0xFFBEE7CF)
+val DiscountColorTwo = Color(0xFFF3E3B3)
+
+val DiscountFontColorOne = Color(0xFF28AD60)
+val DiscountFontColorTwo = Color(0xFFF29D50)
+
 
 
 
