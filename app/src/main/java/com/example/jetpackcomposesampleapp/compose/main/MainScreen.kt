@@ -63,7 +63,8 @@ fun MainScreen(
 
         { innerPadding ->
 
-            Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
+            Box(modifier = Modifier
+                .padding(bottom = innerPadding.calculateBottomPadding()))
             {
                 BottomNavGraph(
                     navController = childNavController,

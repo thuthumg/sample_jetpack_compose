@@ -21,7 +21,7 @@ class DiscountDetailActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DiscountDetail()
+                   // DiscountDetail()
                 }
             }
         }
@@ -34,6 +34,6 @@ class DiscountDetailActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview2() {
     GroceryAppTheme {
-        DiscountDetail()
+       // DiscountDetail()
     }
 }

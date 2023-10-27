@@ -37,7 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.compose.detail.SimilarProductEachItem
-import com.example.jetpackcomposesampleapp.data.vos.ProductItemVO
+import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
+//import com.example.jetpackcomposesampleapp.data.vos.ProductItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.ui.theme.GroceryAppTheme
 import com.example.jetpackcomposesampleapp.util.productList
@@ -61,7 +62,7 @@ class EachGroceryItemListActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EachGroceryItemListScreen(onBackClick : ()->Unit,onGroceryItemClick:(ProductItemVO,Int)->Unit) {
+fun EachGroceryItemListScreen(onBackClick : ()->Unit,onGroceryItemClick:(EachGroceryItemVO,Int)->Unit) {
     val mContext = LocalContext.current
     var showCustomBackDialog by remember { mutableStateOf(false) }
 
@@ -145,7 +146,7 @@ fun EachGroceryItemListScreen(onBackClick : ()->Unit,onGroceryItemClick:(Product
 @Composable
 private fun GroceryItemListLayout(
     innerPadding: PaddingValues,
-    onGroceryItemClick: (ProductItemVO, Int) -> Unit,
+    onGroceryItemClick: (EachGroceryItemVO, Int) -> Unit,
 ) {
     Card(
         modifier = Modifier
@@ -232,10 +233,10 @@ fun BackHandler(
 
 @Composable
 fun EachGroceryItem(
-    itemList: List<ProductItemVO>,
+    itemList: List<EachGroceryItemVO>,
     it: Int,
     current: Context,
-    onGroceryItemClick: (ProductItemVO, Int) -> Unit,
+    onGroceryItemClick: (EachGroceryItemVO, Int) -> Unit,
 ) {
     SimilarProductEachItem(Modifier,itemList[it],onGroceryItemClick)
 }

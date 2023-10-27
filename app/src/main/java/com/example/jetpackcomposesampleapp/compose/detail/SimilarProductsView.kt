@@ -36,9 +36,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.data.vos.ProductItemVO
+import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
+//import com.example.jetpackcomposesampleapp.data.vos.ProductItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.util.fontDimensionResource
+import com.example.jetpackcomposesampleapp.util.productList
 
 @Preview
 @Composable
@@ -98,18 +100,18 @@ private fun SimilarProductTitleSection() {
 @Composable
 private fun SimilarProductItemList() {
 
-    val productList: List<ProductItemVO> = listOf(
-        ProductItemVO(1,"Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
-        ProductItemVO(2,"Mango","4.25","$4.25/kg", R.drawable.mango_img,50),
-        ProductItemVO(3,"Strawberry","1.60","$0.20/pc", R.drawable.strawberry_img,50),
-        ProductItemVO(4,"Orange","17.00","$17.00/kg", R.drawable.orange_img,50),
-        ProductItemVO(5,"Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
-        ProductItemVO(6,"Mango","4.25","$4.25/kg", R.drawable.mango_img,50),
-        ProductItemVO(7,"Strawberry","1.60","$0.20/pc", R.drawable.strawberry_img,50),
-        ProductItemVO(8,"Orange","17.00","$17.00/kg", R.drawable.orange_img,50),
-        // ProductItemVO("Watermelon",1.6,"pc",R.drawable.watermelon_img,20)
-
-    )
+//    val productList: List<ProductItemVO> = listOf(
+//        ProductItemVO(1,"Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
+//        ProductItemVO(2,"Mango","4.25","$4.25/kg", R.drawable.mango_img,50),
+//        ProductItemVO(3,"Strawberry","1.60","$0.20/pc", R.drawable.strawberry_img,50),
+//        ProductItemVO(4,"Orange","17.00","$17.00/kg", R.drawable.orange_img,50),
+//        ProductItemVO(5,"Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
+//        ProductItemVO(6,"Mango","4.25","$4.25/kg", R.drawable.mango_img,50),
+//        ProductItemVO(7,"Strawberry","1.60","$0.20/pc", R.drawable.strawberry_img,50),
+//        ProductItemVO(8,"Orange","17.00","$17.00/kg", R.drawable.orange_img,50),
+//        // ProductItemVO("Watermelon",1.6,"pc",R.drawable.watermelon_img,20)
+//
+//    )
 
     val rows = 2
     // val columns = productList.size
@@ -130,8 +132,8 @@ private fun SimilarProductItemList() {
 @Composable
 fun SimilarProductEachItem(
     modifier: Modifier,
-    productItemVO: ProductItemVO,
-    onGroceryItemClick: ((ProductItemVO, Int) -> Unit)?
+    productItemVO: EachGroceryItemVO,
+    onGroceryItemClick: ((EachGroceryItemVO, Int) -> Unit)?
 ) {
     Card(
         modifier = modifier
@@ -151,10 +153,10 @@ fun SimilarProductEachItem(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ProductImageSection(productItemVO.productImage)
-            ProductNameSection(productItemVO.productName)
-            ProductPriceAndUnitSection(productItemVO.productUnit)
-            ProductPriceAndAddButtonSection(productItemVO.productPrice)
+            ProductImageSection(productItemVO.itemImage)
+            ProductNameSection(productItemVO.itemName)
+            ProductPriceAndUnitSection(productItemVO.itemUnit)
+            ProductPriceAndAddButtonSection(productItemVO.itemPrice)
         }
     }
 }

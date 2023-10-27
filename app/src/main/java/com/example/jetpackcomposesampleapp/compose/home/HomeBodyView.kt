@@ -48,7 +48,7 @@ fun HomeBodyView(onCategoryItemClick: (CategoryItemVO) -> Unit, onSeeAllClick: (
                 CategoriesListView(onCategoryItemClick,onSeeAllClick)
                 PromotionsListView()
                 PopularDealsListView()
-                Spacer(modifier = Modifier.height(75.dp))
+               // Spacer(modifier = Modifier.height(75.dp))
             }
        // }
 

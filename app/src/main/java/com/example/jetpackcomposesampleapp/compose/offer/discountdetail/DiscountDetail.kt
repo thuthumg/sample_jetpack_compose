@@ -40,31 +40,33 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.compose.detail.DetailScreenActivity
-import com.example.jetpackcomposesampleapp.data.vos.DiscountItemVO
+//import com.example.jetpackcomposesampleapp.data.vos.DiscountItemVO
+import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
-import com.example.jetpackcomposesampleapp.util.discountItemVOList
+//import com.example.jetpackcomposesampleapp.util.discountItemVOList
 import com.example.jetpackcomposesampleapp.util.fontDimensionResource
+import com.example.jetpackcomposesampleapp.util.productList
 
 @Composable
-fun DiscountDetail() {
+fun DiscountDetail(onDiscountItemProductClick:(EachGroceryItemVO) -> Unit) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = AppMainColor
     ) {
-        DiscountDetailLayout()
+        DiscountDetailLayout(onDiscountItemProductClick)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DiscountDetailLayout() {
+private fun DiscountDetailLayout(onDiscountItemProductClick:(EachGroceryItemVO) -> Unit) {
     Scaffold(
         containerColor = AppMainColor,
         topBar = {
             DiscountDetailTopBar()
         }
     ) { innerPaddingValues ->
-        DiscountDetailContentLayout(innerPaddingValues)
+        DiscountDetailContentLayout(innerPaddingValues,onDiscountItemProductClick)
 
 
     }
@@ -72,7 +74,7 @@ private fun DiscountDetailLayout() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DiscountDetailContentLayout(innerPaddingValues: PaddingValues) {
+fun DiscountDetailContentLayout(innerPaddingValues: PaddingValues,onDiscountItemProductClick:(EachGroceryItemVO) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -93,13 +95,13 @@ fun DiscountDetailContentLayout(innerPaddingValues: PaddingValues) {
 
     ) {
 
-        DiscountItemListLayout()
+        DiscountItemListLayout(onDiscountItemProductClick)
 
     }
 }
 
 @Composable
-fun DiscountItemListLayout() {
+fun DiscountItemListLayout(onDiscountItemProductClick:(EachGroceryItemVO) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -126,9 +128,9 @@ fun DiscountItemListLayout() {
             item {
                 FilterView()
             }
-            items(discountItemVOList.size) { position->
-                EachDiscountItemLayout(discountItemVOList[position])
-                if(position != (discountItemVOList.size - 1))
+            items(productList.size) { position->
+                EachDiscountItemLayout(productList[position],onDiscountItemProductClick)
+                if(position != (productList.size - 1))
                 {
                     Divider(color = Color.Gray.copy(0.1f), thickness = 1.dp)
                 }
@@ -189,11 +191,12 @@ private fun FilterView() {
 
 
 @Composable
-fun EachDiscountItemLayout(discountItemVO: DiscountItemVO) {
+fun EachDiscountItemLayout(discountItemVO: EachGroceryItemVO,onDiscountItemProductClick:(EachGroceryItemVO) -> Unit) {
     val context = LocalContext.current
     Row(
             modifier = Modifier.fillMaxSize().clickable {
-                context.startActivity(DetailScreenActivity.newIntent(context,true))
+               // context.startActivity(DetailScreenActivity.newIntent(context,true))
+                onDiscountItemProductClick(discountItemVO)
             },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
@@ -241,7 +244,7 @@ fun DiscountDetailTopBar() {
 }
 
 @Composable
-private fun DiscountItemImageLayout(discountCardItemVO: DiscountItemVO) {
+private fun DiscountItemImageLayout(discountCardItemVO: EachGroceryItemVO) {
 
     Image(
         modifier = Modifier
@@ -255,7 +258,7 @@ private fun DiscountItemImageLayout(discountCardItemVO: DiscountItemVO) {
 }
 
 @Composable
-private fun DiscountItemInformationLayout(discountItemVO: DiscountItemVO) {
+private fun DiscountItemInformationLayout(discountItemVO: EachGroceryItemVO) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -280,7 +283,7 @@ private fun DiscountItemInformationLayout(discountItemVO: DiscountItemVO) {
 }
 
 @Composable
-private fun OriginalPriceView(discountItemVO: DiscountItemVO) {
+private fun OriginalPriceView(discountItemVO: EachGroceryItemVO) {
     Text(
         modifier = Modifier
             .padding(
@@ -290,7 +293,7 @@ private fun OriginalPriceView(discountItemVO: DiscountItemVO) {
                 end = 0.dp
             ),
         textAlign = TextAlign.Start,
-        text = "$${discountItemVO.itemOriginalPrice}",
+        text = "$${discountItemVO.itemPrice}",
         fontWeight = FontWeight.Bold,
         color = AppMainColor,
         fontSize = fontDimensionResource(id = R.dimen.text_regular)
@@ -298,7 +301,7 @@ private fun OriginalPriceView(discountItemVO: DiscountItemVO) {
 }
 
 @Composable
-private fun DiscountPercentView(discountItemVO: DiscountItemVO) {
+private fun DiscountPercentView(discountItemVO: EachGroceryItemVO) {
     Card(
         modifier = Modifier
             .wrapContentSize(),
@@ -327,7 +330,7 @@ private fun DiscountPercentView(discountItemVO: DiscountItemVO) {
                     end = dimensionResource(id = R.dimen.margin_medium_2),
                 ),
             textAlign = TextAlign.Start,
-            text = "${discountItemVO.discountPercent}",
+            text ="-55% ",// "${discountItemVO.discountPercent}",
             fontWeight = FontWeight.W400,
             color = Color.White,
             fontSize = fontDimensionResource(id = R.dimen.text_small)
@@ -336,7 +339,7 @@ private fun DiscountPercentView(discountItemVO: DiscountItemVO) {
 }
 
 @Composable
-private fun DiscountNameView(discountItemVO: DiscountItemVO) {
+private fun DiscountNameView(discountItemVO: EachGroceryItemVO) {
     Text(
         modifier = Modifier
             .padding(
@@ -346,7 +349,7 @@ private fun DiscountNameView(discountItemVO: DiscountItemVO) {
                 end = 0.dp
             ),
         textAlign = TextAlign.Start,
-        text = "${discountItemVO.discountItemName}",
+        text = "${discountItemVO.itemName}",
         fontWeight = FontWeight.W600,
         color = Color.Black,
         fontSize = fontDimensionResource(id = R.dimen.text_regular_2x)

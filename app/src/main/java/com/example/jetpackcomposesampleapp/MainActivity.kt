@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
                         navController.navigate("categoryList")
                     },
                     onDiscountItemClick = {
-                        navController.navigate("discountDetail")
+                        navController.navigate("discountDetail/${it.discountId}/discountList")
                     }
                 )
             }
@@ -82,7 +82,7 @@ class MainActivity : ComponentActivity() {
                     onBackClick = { navController.navigateUp() },
                     onGroceryItemClick = { productItemVO, categoryId ->
                         navController.navigate(
-                            "categoryDetail/${categoryId}/productList/${productItemVO.productId}/productDetail"
+                            "categoryDetail/${categoryId}/productList/${productItemVO.itemId}/productDetail"
                         )
                     }
                 )
@@ -98,17 +98,34 @@ class MainActivity : ComponentActivity() {
 
             ) {
                 DetailScreen(
+                    pageState = false,
+                    onBackClick = { navController.navigateUp() })
+            }
+            composable(
+                "discountDetail/{discountItemCategoryId}/productList/{discountItemId}/productDetail",
+                arguments = listOf(navArgument("discountItemCategoryId") {
+                    type = NavType.StringType
+                },
+                    navArgument("discountItemId") {
+                        type = NavType.StringType
+                    })
+
+            ) {
+                DetailScreen(
                     pageState = true,
                     onBackClick = { navController.navigateUp() })
             }
             composable(
-                "discountDetail",
-
+                "discountDetail/{itemId}/discountList",
+                arguments = listOf(navArgument("itemId") {
+                    type = NavType.StringType
+                })
                 ) {
+
                 DiscountDetail(
-//                    onCategoryItemClick = {
-//                        navController.navigate("categoryDetail/${it.categoryId}/productList")
-//                    }
+                    onDiscountItemProductClick = {
+                        navController.navigate("discountDetail/${it.itemCategoryType}/productList/${it.itemId}/productDetail")
+                    }
                 )
             }
             /* composable(

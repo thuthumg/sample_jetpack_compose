@@ -203,7 +203,7 @@ private fun DiscountItemImageLayout(discountCardItemVO: DiscountCardItemVO) {
             .width(100.dp)
             .height(100.dp)
             .padding(dimensionResource(id = R.dimen.margin_card_medium_2)),
-        painter = painterResource(discountCardItemVO.itemImage),
+        painter = painterResource(discountCardItemVO.discountImage),
         contentDescription = "Image",
         contentScale = ContentScale.FillBounds,
     )

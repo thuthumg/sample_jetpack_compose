@@ -6,19 +6,25 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -42,7 +48,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
+import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.util.fontDimensionResource
+import com.google.android.material.color.utilities.MaterialDynamicColors.background
 
 @Composable
 fun DetailScreen(pageState:Boolean,onBackClick: ()-> Unit) {
@@ -61,86 +69,143 @@ private fun MainContent(pageState: Boolean, onBackClick: () -> Unit) {
         // Creating Content
         content = { innerPadding ->
 
-            // Creating a Column Layout
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-                    .background(Color.White),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
 
-                // Creating a Scrollable list of 100 items
+            Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())){
 
-                val lazyListState = rememberLazyListState()
-                var scrolledY = 0f
-                var previousOffset = 0
-                LazyColumn(
-                    Modifier.fillMaxSize(),
-                    lazyListState,
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .background(Color.White),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    // Setting the Image as the first
-                    // item and making it collapsible
-                    item {
 
-                        Box(modifier = Modifier.fillMaxSize())
-                        {
-                            Column(Modifier.align(Alignment.Center)) {
-                                ItemImageSection(scrolledY, lazyListState, previousOffset)
-                            }
+                    // Creating a Scrollable list of 100 items
 
-                            Column(Modifier.align(Alignment.TopStart)) {
-                                BackButtonSection(onBackClick)
-                            }
+                    val lazyListState = rememberLazyListState()
+                    var scrolledY = 0f
+                    var previousOffset = 0
+                    LazyColumn(
+                        Modifier.fillMaxSize(),
+                        lazyListState,
+                    ) {
+                        // Setting the Image as the first
+                        // item and making it collapsible
+                        item {
 
-                            Column(
-                                Modifier
-                                    .align(Alignment.TopEnd)
-                                    .padding(
-                                        top = dimensionResource(id = R.dimen.margin_medium_2),
-                                        end = dimensionResource(id = R.dimen.margin_medium_2),
-                                    )
-                            ) {
-                                if (pageState)
-                                    DetailPageDiscountPercentView()
+                            Box(modifier = Modifier.fillMaxSize())
+                            {
+                                Column(Modifier.align(Alignment.Center)) {
+                                    ItemImageSection(scrolledY, lazyListState, previousOffset)
+                                }
+
+                                Column(Modifier.align(Alignment.TopStart)) {
+                                    BackButtonSection(onBackClick)
+                                }
+
+                                Column(
+                                    Modifier
+                                        .align(Alignment.TopEnd)
+                                        .padding(
+                                            top = dimensionResource(id = R.dimen.margin_medium_2),
+                                            end = dimensionResource(id = R.dimen.margin_medium_2),
+                                        )
+                                ) {
+                                    if (pageState)
+                                        DetailPageDiscountPercentView()
+                                }
                             }
                         }
-                    }
-                    items(1) {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
-                                .padding(3.dp),
-
-                            shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = AppBackgroundColor,
-                            ),
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 10.dp
-                            ),
-
-                            ) {
-
-                            Column(
+                        items(1) {
+                            Card(
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                // .verticalScroll(rememberScrollState())
-                            ) {
+                                    .fillMaxWidth()
+                                    .fillMaxHeight()
+                                    .padding(3.dp),
 
-                                ProductDetailInformationView()
-                                ProductDetailAndReviewsView()
-                                SimilarProductsView()
+                                shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = AppBackgroundColor,
+                                ),
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 10.dp
+                                ),
 
+                                ) {
+
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                    // .verticalScroll(rememberScrollState())
+                                ) {
+
+                                    ProductDetailInformationView()
+                                    ProductDetailAndReviewsView()
+                                    SimilarProductsView()
+
+
+                                }
 
                             }
-
                         }
                     }
                 }
+
+                Column(Modifier.align(Alignment.BottomCenter))  {
+
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(58.dp),
+
+                        shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = Color.White,
+                        ),
+                        elevation = CardDefaults.cardElevation(
+                            defaultElevation = 10.dp
+                        ),
+
+                        ){
+                        Row(modifier = Modifier.fillMaxSize(),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically) {
+                            Text(text = "$14.25", color = Color.Black)
+                            Button(onClick = {}, modifier =
+                            Modifier
+                                .wrapContentSize(),
+                                //.background(AppMainColor),
+                                shape = RoundedCornerShape(8.dp),
+                                colors = ButtonDefaults.filledTonalButtonColors(containerColor = AppMainColor, contentColor = Color.White)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.ShoppingCart,
+                                    tint = Color.White,
+                                    contentDescription ="Cart button icon",
+                                    modifier = Modifier.size(20.dp))
+
+                                Text(text = "Add to cart",Modifier.padding(start = 10.dp))
+                            }
+
+                        }
+                    }
+
+                   /* Box(
+                        modifier = Modifier
+                            .height(100.dp)
+                            .fillMaxWidth()
+                            .background(AppBackgroundColor)
+                    ){
+
+
+
+                    }*/
+                }
+
             }
+
+
         }
     )
 }
