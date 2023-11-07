@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
 
 @Composable
@@ -25,14 +24,14 @@ fun PromotionsListView(){
     {
         items(6){ position ->
             //  ListItem(name = "" )
-            CardWithImageDiscount(imagePainter = painterResource(id = R.drawable.food_discount_img),
+            DiscountImageView(imagePainter = painterResource(id = R.drawable.food_discount_img),
                 position = position)
         }
     }
 }
 
 @Composable
-private fun CardWithImageDiscount(imagePainter: Painter, position: Int) {
+private fun DiscountImageView(imagePainter: Painter, position: Int) {
     Card(
         modifier = Modifier
             .padding(
@@ -53,9 +52,9 @@ private fun CardWithImageDiscount(imagePainter: Painter, position: Int) {
             painter = imagePainter,
             contentDescription = null,
             modifier = Modifier
-                .width(250.dp)
+                .width(dimensionResource(id = R.dimen.dimen_promotion_image_size_width_from_home))
                 // .padding(16.dp)
-                .height(130.dp),
+                .height(dimensionResource(id = R.dimen.dimen_promotion_image_size_height_from_home)),
             contentScale = ContentScale.Crop
         )
     }

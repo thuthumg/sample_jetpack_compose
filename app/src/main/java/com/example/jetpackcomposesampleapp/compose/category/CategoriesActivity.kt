@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.jetpackcomposesampleapp.compose.setting.CreateCategoryScreen
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.ui.theme.GroceryAppTheme
 
@@ -25,7 +26,10 @@ class CategoriesActivity : ComponentActivity() {
                     color = AppMainColor,
 
                 ) {
-                    val navController = rememberNavController()
+                  //  val navController = rememberNavController()
+
+                    CreateCategoryScreen()
+
                  /*   CategoriesScreen(
                         onBackClick = {
                             Log.d("categories","on click back")

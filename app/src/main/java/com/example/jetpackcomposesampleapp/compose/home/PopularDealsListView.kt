@@ -1,12 +1,10 @@
 package com.example.jetpackcomposesampleapp.compose.home
 
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,11 +28,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.category.CategoriesActivity
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppSecondaryColor
+import com.example.jetpackcomposesampleapp.util.categoriesList
 import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 
 @Composable
@@ -44,7 +41,8 @@ fun PopularDealsListView() {
             .fillMaxSize()
             .padding(
                 start = dimensionResource(id = R.dimen.margin_medium_2),
-                end = dimensionResource(id = R.dimen.margin_medium_2),),
+                end = dimensionResource(id = R.dimen.margin_medium_2),
+            ),
         shape = RoundedCornerShape(
             dimensionResource(id = R.dimen.dimen_card_corner_radius)),
         colors = CardDefaults.cardColors(
@@ -61,9 +59,9 @@ fun PopularDealsListView() {
 
         ){
 
-            PopularDealsTitleSection()
-            HorizontalDivider()
-            PopularDealsItemListSection()
+            PopularDealsTitleView()
+            HorizontalDividerView()
+            PopularDealsItemListView()
 
         }
 
@@ -71,7 +69,7 @@ fun PopularDealsListView() {
 }
 
 @Composable
-private fun PopularDealsTitleSection() {
+private fun PopularDealsTitleView() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -79,14 +77,14 @@ private fun PopularDealsTitleSection() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
-        PopularDealsTitleNameSection()
-        SeeAllSection()
+        PopularDealsTitleTextView()
+        SeeAllTextView()
 
     }
 }
 
 @Composable
-private fun SeeAllSection() {
+private fun SeeAllTextView() {
     Text(
         modifier = Modifier
             .padding(
@@ -98,14 +96,14 @@ private fun SeeAllSection() {
             .clickable {},
         textAlign = TextAlign.End,
         text = stringResource(R.string.lbl_see_all),
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.W400,
         color = AppMainColor,
-        fontSize = fontDimensionResource(id = R.dimen.text_regular_2x),
+        fontSize = fontDimensionResource(id = R.dimen.text_regular),
     )
 }
 
 @Composable
-private fun PopularDealsTitleNameSection() {
+private fun PopularDealsTitleTextView() {
     Text(
         modifier = Modifier
             .padding(
@@ -116,14 +114,14 @@ private fun PopularDealsTitleNameSection() {
             ),
         textAlign = TextAlign.Start,
         text = stringResource(R.string.lbl_popular_deals),
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.W600,
         color = Color.Black,
-        fontSize = fontDimensionResource(id = R.dimen.text_regular_custom)
+        fontSize = fontDimensionResource(id = R.dimen.text_regular_2x)
     )
 }
 
 @Composable
-private fun PopularDealsItemListSection(){
+private fun PopularDealsItemListView(){
     LazyRow(modifier = Modifier
         .padding(vertical = dimensionResource(id = R.dimen.margin_small)) ){
         items(6){ position->
@@ -132,22 +130,8 @@ private fun PopularDealsItemListSection(){
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                CardWithPopularImage(imagePainter = painterResource(id = R.drawable.meat_img))
-
-                Text(
-                    modifier = Modifier.padding(
-                        start = 0.dp,
-                        top = 0.dp,
-                        end = 0.dp,
-                        bottom = dimensionResource(id = R.dimen.margin_medium_2),
-                    ),
-                    text = "Meat",
-                    fontSize = fontDimensionResource(id = R.dimen.text_regular),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.W600,
-                    color = Color.Black,
-
-                    )
+                PopularImageView(imagePainter = painterResource(id = R.drawable.meat_img))
+                PopularItemNameView()
             }
 
 
@@ -156,10 +140,31 @@ private fun PopularDealsItemListSection(){
 }
 
 @Composable
-private fun CardWithPopularImage(imagePainter: Painter) {
+private fun PopularItemNameView() {
+
+
+    Text(
+        modifier = Modifier.padding(
+            start = 0.dp,
+            top = 0.dp,
+            end = 0.dp,
+            bottom = dimensionResource(id = R.dimen.margin_medium_2),
+        ),
+        text = "Meat",
+        fontSize = fontDimensionResource(id = R.dimen.text_small),
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.W400,
+        color = Color.Black,
+
+        )
+
+}
+
+@Composable
+private fun PopularImageView(imagePainter: Painter) {
     Card(
         modifier = Modifier
-            .width(200.dp)
+           // .width(200.dp)
             .padding(dimensionResource(id = R.dimen.margin_medium_2)),
         colors = CardDefaults.cardColors(
             containerColor = AppSecondaryColor,
@@ -172,9 +177,9 @@ private fun CardWithPopularImage(imagePainter: Painter) {
             painter = imagePainter,
             contentDescription = null,
             modifier = Modifier
-                .fillMaxWidth()
+                .width(dimensionResource(id = R.dimen.dimen_popular_item_image_width_from_home))
                 // .padding(16.dp)
-                .height(100.dp),
+                .height(dimensionResource(id = R.dimen.dimen_popular_item_image_height_from_home)),
             contentScale = ContentScale.Crop
         )
     }

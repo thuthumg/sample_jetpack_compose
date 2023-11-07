@@ -19,7 +19,8 @@ fun BottomNavGraph(
     navController: NavHostController,
     onCategoryItemClick : (CategoryItemVO)->Unit,
     onSeeAllClick : ()-> Unit,
-    onDiscountItemClick: (DiscountCardItemVO) -> Unit) {
+    onDiscountItemClick: (DiscountCardItemVO) -> Unit,
+    onCreateCategoryClick : ()-> Unit) {
     
     NavHost(navController = navController, startDestination = BottomBarScreen.Home.route){
         composable(route = BottomBarScreen.Home.route){
@@ -40,7 +41,9 @@ fun BottomNavGraph(
         }
 
         composable(route = BottomBarScreen.Setting.route){
-            SettingsScreen()
+            SettingsScreen(
+                onCreateCategoryClick = onCreateCategoryClick,
+            )
         }
 
         composable(route = BottomBarScreen.Cart.route){

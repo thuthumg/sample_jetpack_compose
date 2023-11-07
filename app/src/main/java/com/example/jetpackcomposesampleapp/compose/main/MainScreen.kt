@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.material3.*
@@ -15,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
@@ -27,6 +30,7 @@ import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
 import com.example.jetpackcomposesampleapp.data.vos.DiscountCardItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
+import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -123,10 +127,18 @@ fun RowScope.NavigateEachItem(
 ) {
     NavigationBarItem(
         label = {
-            Text(text = screen.title)
+
+            Text(
+                text = screen.title,
+                fontSize = fontDimensionResource(id = R.dimen.text_small),
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.W400)
         },
         icon = {
             Icon(
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(bottom = dimensionResource(id = R.dimen.text_small)),
                 imageVector = screen.icon,
                 contentDescription = "Navigation Icon"
             )

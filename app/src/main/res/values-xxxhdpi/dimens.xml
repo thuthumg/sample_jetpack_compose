@@ -18,16 +18,17 @@
     <dimen name="margin_medium_3_n">-18dp</dimen>
     <dimen name="margin_large_n">-24dp</dimen>
     <dimen name="margin_xlarge_n">-32dp</dimen>
-    <dimen name="text_smaller">10sp</dimen>
-    <dimen name="text_small">12sp</dimen>
-    <dimen name="text_regular">14sp</dimen>
-    <dimen name="text_regular_2x">16sp</dimen>
-    <dimen name="text_regular_3x">20sp</dimen>
-    <dimen name="text_heading_1x">24sp</dimen>
-    <dimen name="text_heading_2x">32sp</dimen>
-    <dimen name="text_big">40sp</dimen>
-    <dimen name="text_big_2x">68sp</dimen>
-    <dimen name="text_big_3x">80sp</dimen>
+
+    <dimen name="text_smaller">9sp</dimen>
+    <dimen name="text_small">11sp</dimen>
+    <dimen name="text_regular">13sp</dimen>
+    <dimen name="text_regular_2x">15sp</dimen>
+    <dimen name="text_regular_3x">19sp</dimen>
+    <dimen name="text_heading_1x">23sp</dimen>
+    <dimen name="text_heading_2x">31sp</dimen>
+    <dimen name="text_big">39sp</dimen>
+    <dimen name="text_big_2x">67sp</dimen>
+    <dimen name="text_big_3x">79sp</dimen>
 
     <dimen name="dimen_100">100dp</dimen>
     <dimen name="dimen_200">200dp</dimen>
@@ -55,5 +56,4 @@
     <dimen name="dimen_popular_item_image_width_from_home">200dp</dimen>
     <dimen name="dimen_popular_item_image_height_from_home">100dp</dimen>
     <dimen name="dimen_bottom_nav_icon_size">20dp</dimen>
-
 </resources>

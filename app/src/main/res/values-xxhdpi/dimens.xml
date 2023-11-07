@@ -18,6 +18,8 @@
     <dimen name="margin_medium_3_n">-18dp</dimen>
     <dimen name="margin_large_n">-24dp</dimen>
     <dimen name="margin_xlarge_n">-32dp</dimen>
+
+
     <dimen name="text_smaller">10sp</dimen>
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_regular">14sp</dimen>
@@ -55,5 +57,4 @@
     <dimen name="dimen_popular_item_image_width_from_home">200dp</dimen>
     <dimen name="dimen_popular_item_image_height_from_home">100dp</dimen>
     <dimen name="dimen_bottom_nav_icon_size">20dp</dimen>
-
 </resources>

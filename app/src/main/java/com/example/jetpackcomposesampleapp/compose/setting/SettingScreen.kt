@@ -22,81 +22,41 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
+import com.example.jetpackcomposesampleapp.data.vos.DiscountCardItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
+import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen( onCreateCategoryClick: ()-> Unit) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = AppMainColor//MaterialTheme.colorScheme.background
     ){
-        SettingLayout()
+        SettingLayout(onCreateCategoryClick)
     }
 
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingLayout() {
+fun SettingLayout( onCreateCategoryClick: ()-> Unit) {
     Scaffold(
         containerColor = AppMainColor,
         topBar = {
-            SettingTopAppBar()
+            SettingHeaderView()
         }
     ) { innerPaddingValues->
-        SettingContentLayout(innerPaddingValues)
+        SettingBodyView(innerPaddingValues, onCreateCategoryClick)
 
 
     }
 }
 
-@Composable
-@OptIn(ExperimentalMaterial3Api::class)
-private fun SettingTopAppBar() {
-    CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = AppMainColor,
-            titleContentColor = Color.White
-        ),
-        title = {
-            Text(
-                text = stringResource(R.string.lbl_setting),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                fontWeight = FontWeight.Bold
-            )
-        })
-}
-
-@Composable
-private fun SettingContentLayout(innerPaddingValues: PaddingValues) {
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPaddingValues),
-
-        shape = RoundedCornerShape(
-            topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
-            topEnd = dimensionResource(id = R.dimen.dimen_card_corner_radius),
-            bottomEnd = 0.dp,
-            bottomStart = 0.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation),
-        ),
-
-        ) {
 
 
-
-    }
-}
 
 @Composable
 @Preview
 fun SettingsScreenPreview() {
-    SettingsScreen()
+  //  SettingsScreen()
 }

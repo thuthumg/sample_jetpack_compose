@@ -1,6 +1,7 @@
 package com.example.jetpackcomposesampleapp.compose.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -44,68 +45,17 @@ fun HomeScreen(
 private fun HomeLayout(onCategoryItemClick: (CategoryItemVO) -> Unit,
                        onSeeAllClick: () -> Unit) {
     Scaffold(
-      containerColor = AppMainColor,
-        topBar = {
-
-        }
+      containerColor = AppMainColor
     ) { innerPadding ->
         Column {
             HomeHeaderView()
-            Card(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        0.dp,
-                        dimensionResource(id = R.dimen.margin_medium),
-                        0.dp,
-                        0.dp
-                    ),
-                shape = RoundedCornerShape(
-                    topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
-                    topEnd =  dimensionResource(id = R.dimen.dimen_card_corner_radius),
-                    bottomEnd = 0.dp,
-                    bottomStart = 0.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = AppBackgroundColor,
-                ),
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation)
-                )
-
-            ) {
-
-                LazyColumn(modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-                ){
-
-                    item {
-
-                        HomeBodyView(onCategoryItemClick,onSeeAllClick)
-                    }
-
-
-                }
-            }
+            HomeBodyView(innerPadding, onCategoryItemClick, onSeeAllClick)
         }
 
-
-
-
-
-//        Column(modifier = Modifier
-//            .padding(innerPadding)
-//            .fillMaxSize()
-//            .background(AppMainColor)
-//            .verticalScroll(rememberScrollState())
-//        ){
-//
-//            HomeHeaderView()
-//            HomeBodyView()
-//
-//        }
     }
 }
+
+
 
 
 

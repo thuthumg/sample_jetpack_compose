@@ -55,5 +55,4 @@
     <dimen name="dimen_popular_item_image_width_from_home">200dp</dimen>
     <dimen name="dimen_popular_item_image_height_from_home">100dp</dimen>
     <dimen name="dimen_bottom_nav_icon_size">20dp</dimen>
-
 </resources>

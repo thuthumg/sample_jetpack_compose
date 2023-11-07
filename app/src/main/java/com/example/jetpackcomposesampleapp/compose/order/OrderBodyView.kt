@@ -1,12 +1,11 @@
 package com.example.jetpackcomposesampleapp.compose.order
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -17,115 +16,84 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Chip
-import androidx.compose.material.ChipColors
 import androidx.compose.material.ChipDefaults
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.currentComposer
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.cart.CustomButton
 import com.example.jetpackcomposesampleapp.data.vos.OrderItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.util.orderItemList
-import com.example.jetpackcomposesampleapp.util.productList
+
 
 @Composable
-fun OrderScreen() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = AppMainColor// MaterialTheme.colorScheme.background
-    ){
-        OrderLayout()
-    }
+fun OrderBodyView(innerPaddingValues: PaddingValues) {
+    Card(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPaddingValues),
 
+        shape = RoundedCornerShape(
+            topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
+            topEnd = dimensionResource(id = R.dimen.dimen_card_corner_radius),
+            bottomEnd = 0.dp,
+            bottomStart = 0.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White,
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation),
+        ),
 
-}
-
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
-@Composable
-fun OrderLayout() {
-    Scaffold(
-        containerColor = AppMainColor,
-        topBar = { OrderTopAppBar() }
-    ) { innerPaddingValues->
-
+        ) {
         Card(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPaddingValues),
+                .padding(dimensionResource(id = R.dimen.margin_medium)),
 
-            shape = RoundedCornerShape(
-                topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
-                topEnd = dimensionResource(id = R.dimen.dimen_card_corner_radius),
-                bottomEnd = 0.dp,
-                bottomStart = 0.dp
-            ),
+            // shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White,
+                containerColor = AppBackgroundColor,
             ),
             elevation = CardDefaults.cardElevation(
-                defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation),
+                defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation)
             ),
 
+
             ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(dimensionResource(id = R.dimen.margin_medium)),
-
-                // shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = AppBackgroundColor,
-                ),
-                elevation = CardDefaults.cardElevation(
-                    defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation)
-                ),
-
-
-                ) {
-                Column {
-                    OrderStatusListView()
-                    OrderListView()
-                }
-
+            Column {
+                OrderStatusListView()
+                OrderListView()
             }
-
 
         }
 
 
     }
-
 }
 
 @Composable
 private fun OrderListView() {
     LazyColumn(modifier = Modifier.padding(dimensionResource(id = R.dimen.margin_medium))) {
         items(orderItemList.size) {
-            OrderItemListLayout(orderItemList[it])
+            OrderItemListView(orderItemList[it])
         }
 
     }
@@ -136,78 +104,79 @@ private fun OrderStatusListView() {
     LazyRow(modifier = Modifier.padding(dimensionResource(id = R.dimen.margin_medium))) {
         items(5) {
             if(it == 0)
-            ChipItem("Pending",true)
+                ChipItemView("Pending",true)
             else
-                ChipItem("Pending",false)
+                ChipItemView("Pending",false)
         }
 
     }
 }
 
 @Composable
-private fun OrderItemListLayout(orderItemVO: OrderItemVO) {
- /*   Card(
+private fun OrderItemListView(orderItemVO: OrderItemVO) {
+    /*   Card(
+           modifier = Modifier
+               .fillMaxSize()
+               .padding(dimensionResource(id = R.dimen.margin_medium)),
+
+           // shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
+           colors = CardDefaults.cardColors(
+               containerColor = Color.White,
+           ),
+           elevation = CardDefaults.cardElevation(
+               defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation)
+           ),
+
+
+           ) {*/
+
+    Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.margin_medium)),
-
-        // shape = RoundedCornerShape(30.dp, 30.dp, 0.dp, 0.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation)
-        ),
+            .background(Color.White),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
 
 
-        ) {*/
+    ) {
+        OrderImageView(orderItemVO)
 
-        Row(
+        Column(
             modifier = Modifier
-                .fillMaxSize().background(Color.White),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .weight(2f),
+            verticalArrangement = Arrangement.Center,
 
 
-        ) {
-            OrderImageView(orderItemVO)
+            ) {
 
-            Column(
+            OrderItemNameView()
+            OrderPriceView()
+
+            Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .weight(2f),
-                verticalArrangement = Arrangement.Center,
+                    .padding(top = dimensionResource(id = R.dimen.margin_medium)),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
 
 
-                ) {
+            ) {
+                OrderItemStatusView()
+                OrderDateView()
 
-                OrderImageName()
-                OrderPrice()
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = dimensionResource(id = R.dimen.margin_medium)),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-
-
-                ) {
-                    OrderItemStatusView()
-                    OrderDateView()
-
-                }
             }
-
-
-
         }
+
+
+
+    }
     Divider(color = Color.Gray.copy(0.1f), thickness = 1.dp)
 
 
 
 
-   // }
+    // }
 }
 
 @Composable
@@ -250,7 +219,7 @@ private fun OrderItemStatusView() {
 }
 
 @Composable
-private fun OrderPrice() {
+private fun OrderPriceView() {
     Text(
         modifier = Modifier
             .padding(
@@ -267,7 +236,7 @@ private fun OrderPrice() {
 }
 
 @Composable
-private fun OrderImageName() {
+private fun OrderItemNameView() {
     Text(
         modifier = Modifier
             .padding(
@@ -298,7 +267,7 @@ private fun OrderImageView(orderItemVO: OrderItemVO) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ChipItem(text: String,selectedStatus:Boolean) {
+private fun ChipItemView(text: String, selectedStatus:Boolean) {
     Chip(
         modifier = Modifier.padding(end = dimensionResource(id = R.dimen.margin_medium)),
         onClick = {},
@@ -306,33 +275,16 @@ fun ChipItem(text: String,selectedStatus:Boolean) {
         shape = RoundedCornerShape(dimensionResource(id = R.dimen.margin_medium)),
         colors = ChipDefaults.chipColors(
             backgroundColor = if(selectedStatus) AppMainColor else Color.White )
-       // border = BorderStroke(0.dp, Color(0xFF3B3A3C))
+        // border = BorderStroke(0.dp, Color(0xFF3B3A3C))
     ) {
-        Text(modifier = Modifier.padding(
+
+        Text(
+            modifier = Modifier.padding(
             dimensionResource(id = R.dimen.margin_medium)),
-            text = text, color = if(selectedStatus) Color.White else Color.Black)
+            text = text,
+            color = if(selectedStatus) Color.White else Color.Black,
+          //  fontSize = dimensionResource(id = R.dimen.text_regular)
+        )
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun OrderTopAppBar() {
 
-    CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = AppMainColor,
-            titleContentColor = Color.White
-        ),
-        title = {
-            Text(
-                text = stringResource(R.string.lbl_order),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        })
-}
-
-@Composable
-@Preview
-fun OrderScreenPreview() {
-    OrderScreen()
-}

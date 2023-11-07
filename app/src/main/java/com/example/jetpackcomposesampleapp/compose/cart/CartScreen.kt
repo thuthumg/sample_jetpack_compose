@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -45,6 +46,7 @@ import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
+import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 import com.example.jetpackcomposesampleapp.util.itemList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,25 +71,15 @@ fun CartScreen() {
                 ),
                 // along with that we are specifying title for our top bar.
                 title = {
-                    // in the top bar we are specifying tile as a text
                     Text(
-                        // on below line we are specifying
-                        // text to display in top app bar.
-                        text = "Cart",
+                        text = stringResource(R.string.lbl_cart),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        // on below line we are specifying
-                        // modifier to fill max width.
-//                        modifier = Modifier.fillMaxWidth(),
-//
-//                        // on below line we are specifying text alignment.
-//                        textAlign = TextAlign.Center,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = fontDimensionResource(id = R.dimen.text_regular_3x)
 
-                        // on below line we are specifying color for our text.
-                        // color = Color.White
                     )
+
                 }
 
             )

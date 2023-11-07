@@ -31,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.detail.DetailScreenActivity
 import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.ui.theme.AppSecondaryColor
@@ -41,15 +40,16 @@ import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 @Composable
 fun CategoriesListView(
     onCategoryItemClick: (CategoryItemVO) -> Unit,
-    onSeeAllClick: () -> Unit) {
+    onSeeAllClick: () -> Unit
+) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(
                 start = dimensionResource(id = R.dimen.margin_medium_2),
-                end = dimensionResource(id = R.dimen.margin_medium_2),)
-        ,
+                end = dimensionResource(id = R.dimen.margin_medium_2),
+            ),
         shape = RoundedCornerShape(
             dimensionResource(id = R.dimen.dimen_card_corner_radius)
         ),
@@ -57,18 +57,18 @@ fun CategoriesListView(
             containerColor = Color.White,
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation =  dimensionResource(id = R.dimen.dimen_card_elevation),
+            defaultElevation = dimensionResource(id = R.dimen.dimen_card_elevation),
         )
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxSize(),
-        ){
+        ) {
 
-            CategoryCardTitleSection(context,onSeeAllClick)
-            HorizontalDivider()
-            CategoryItemListSection(onCategoryItemClick)
+            CategoryCardTitleView(context, onSeeAllClick)
+            HorizontalDividerView()
+            CategoryItemListView(onCategoryItemClick)
 
         }
 
@@ -76,7 +76,7 @@ fun CategoriesListView(
 }
 
 @Composable
-private fun CategoryCardTitleSection(context: Context, onSeeAllClick: () -> Unit) {
+private fun CategoryCardTitleView(context: Context, onSeeAllClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -86,14 +86,14 @@ private fun CategoryCardTitleSection(context: Context, onSeeAllClick: () -> Unit
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
-        CategoryTitleSection()
-        SeeAllSection(context,onSeeAllClick)
+        CategoryTitleView()
+        SeeAllTextView(context, onSeeAllClick)
 
     }
 }
 
 @Composable
-private fun SeeAllSection(context: Context,onSeeAllClick: () -> Unit) {
+private fun SeeAllTextView(context: Context, onSeeAllClick: () -> Unit) {
     Text(
         modifier = Modifier
             .padding(
@@ -104,20 +104,20 @@ private fun SeeAllSection(context: Context,onSeeAllClick: () -> Unit) {
             )
             .clickable {
                 onSeeAllClick()
-               // val intent = Intent(context, CategoriesActivity::class.java)
-              //  context.startActivity(intent)
+                // val intent = Intent(context, CategoriesActivity::class.java)
+                //  context.startActivity(intent)
                 // NavigationScreen(navController = navController)
             },
         textAlign = TextAlign.End,
         text = stringResource(R.string.lbl_see_all),
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.W400,
         color = AppMainColor,
-        fontSize = fontDimensionResource(id = R.dimen.text_regular_2x),
+        fontSize = fontDimensionResource(id = R.dimen.text_regular),
     )
 }
 
 @Composable
-private fun CategoryTitleSection() {
+private fun CategoryTitleView() {
     Text(
         modifier = Modifier
             .padding(
@@ -128,14 +128,14 @@ private fun CategoryTitleSection() {
             ),
         textAlign = TextAlign.Start,
         text = stringResource(R.string.lbl_categories),
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.W600,
         color = Color.Black,
-        fontSize = fontDimensionResource(id = R.dimen.text_regular_custom)
+        fontSize = fontDimensionResource(id = R.dimen.text_regular_2x)
     )
 }
 
 @Composable
-fun HorizontalDivider() {
+fun HorizontalDividerView() {
 
     Spacer(
         modifier = Modifier
@@ -151,23 +151,28 @@ fun HorizontalDivider() {
     )
 
 }
+
 @Composable
-private fun CategoryItemListSection(onCategoryItemClick: (CategoryItemVO) -> Unit) {
-    LazyRow(modifier = Modifier
-        .fillMaxSize()
-        .padding(vertical = dimensionResource(id = R.dimen.margin_small)) ){
-        items(categoriesList.size){ position->
+private fun CategoryItemListView(onCategoryItemClick: (CategoryItemVO) -> Unit) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = dimensionResource(id = R.dimen.margin_small))
+    ) {
+        items(categoriesList.size) { position ->
 
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .clickable {
-                        Log.d("category","check category id")
-                           onCategoryItemClick(categoriesList[position])
-                },
+                        Log.d("category", "check category id")
+                        onCategoryItemClick(categoriesList[position])
+                    },
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                CategoryImageSection(imagePainter = painterResource(id = categoriesList[position].categoryImage))
-                CategoryNameSection(position)
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CategoryImageView(imagePainter = painterResource(id = categoriesList[position].categoryImage))
+                CategoryNameTextView(position)
             }
 
 
@@ -176,7 +181,7 @@ private fun CategoryItemListSection(onCategoryItemClick: (CategoryItemVO) -> Uni
 }
 
 @Composable
-private fun CategoryNameSection(position: Int) {
+private fun CategoryNameTextView(position: Int) {
     Text(
         modifier = Modifier.padding(
             start = 0.dp,
@@ -185,16 +190,16 @@ private fun CategoryNameSection(position: Int) {
             bottom = dimensionResource(id = R.dimen.margin_medium_2),
         ),
         text = categoriesList[position].categoryName,
-        fontSize = fontDimensionResource(id = R.dimen.text_regular),
+        fontSize = fontDimensionResource(id = R.dimen.text_small),
         textAlign = TextAlign.Center,
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.W400,
         color = Color.Black,
 
         )
 }
 
 @Composable
-private fun CategoryImageSection(imagePainter: Painter) {
+private fun CategoryImageView(imagePainter: Painter) {
     val mContext = LocalContext.current
     Card(
         modifier = Modifier
@@ -216,7 +221,7 @@ private fun CategoryImageSection(imagePainter: Painter) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(id = R.dimen.margin_medium_2))
-                .height(50.dp),
+                .height(dimensionResource(id = R.dimen.dimen_category_image_size_from_home)),
         )
     }
 }

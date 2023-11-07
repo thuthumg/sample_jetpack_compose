@@ -18,26 +18,28 @@
     <dimen name="margin_medium_3_n">-18dp</dimen>
     <dimen name="margin_large_n">-24dp</dimen>
     <dimen name="margin_xlarge_n">-32dp</dimen>
-    <dimen name="text_smaller">10sp</dimen>
-    <dimen name="text_small">12sp</dimen>
-    <dimen name="text_regular">14sp</dimen>
-    <dimen name="text_regular_2x">16sp</dimen>
-    <dimen name="text_regular_3x">20sp</dimen>
-    <dimen name="text_heading_1x">24sp</dimen>
-    <dimen name="text_heading_2x">32sp</dimen>
-    <dimen name="text_big">40sp</dimen>
-    <dimen name="text_big_2x">68sp</dimen>
-    <dimen name="text_big_3x">80sp</dimen>
 
-    <dimen name="dimen_100">100dp</dimen>
-    <dimen name="dimen_200">200dp</dimen>
-    <dimen name="dimen_400">400dp</dimen>
+    <dimen name="text_smaller">14sp</dimen>
+    <dimen name="text_small">16sp</dimen>
+    <dimen name="text_regular">20sp</dimen>
+    <dimen name="text_regular_2x">24sp</dimen>
+    <dimen name="text_regular_3x">32sp</dimen>
+    <dimen name="text_heading_1x">40sp</dimen>
+    <dimen name="text_heading_2x">68sp</dimen>
+    <dimen name="text_big">80sp</dimen>
+    <dimen name="text_big_2x">92sp</dimen>
+    <dimen name="text_big_3x">104sp</dimen>
+
+
+    <dimen name="dimen_100">400dp</dimen>
+    <dimen name="dimen_200">600dp</dimen>
+    <dimen name="dimen_400">800dp</dimen>
 
 
 
     <!-- App Specific Dimensions   -->
-    <dimen name="dimen_similar_product_img_width">100dp</dimen>
-    <dimen name="dimen_similar_product_img_height">150dp</dimen>
+    <dimen name="dimen_similar_product_img_width">300dp</dimen>
+    <dimen name="dimen_similar_product_img_height">350dp</dimen>
     <dimen name="dimen_card_corner_radius">25dp</dimen>
     <dimen name="dimen_tab_indicator_size">100dp</dimen>
     <dimen name="dimen_card_corner_radius_detail_plus_minus">8dp</dimen>
@@ -48,12 +50,12 @@
     <dimen name ="dimen_search_box_radius">15dp</dimen>
     <dimen name="text_regular_custom">16sp</dimen>
 
-    <dimen name="dimen_profile_size">45dp</dimen>
-    <dimen name="dimen_category_image_size_from_home">50dp</dimen>
-    <dimen name="dimen_promotion_image_size_width_from_home">250dp</dimen>
-    <dimen name="dimen_promotion_image_size_height_from_home">130dp</dimen>
-    <dimen name="dimen_popular_item_image_width_from_home">200dp</dimen>
-    <dimen name="dimen_popular_item_image_height_from_home">100dp</dimen>
-    <dimen name="dimen_bottom_nav_icon_size">20dp</dimen>
+    <dimen name="dimen_profile_size">65dp</dimen>
+    <dimen name="dimen_category_image_size_from_home">80dp</dimen>
+    <dimen name="dimen_promotion_image_size_width_from_home">350dp</dimen>
+    <dimen name="dimen_promotion_image_size_height_from_home">170dp</dimen>
 
+    <dimen name="dimen_popular_item_image_width_from_home">300dp</dimen>
+    <dimen name="dimen_popular_item_image_height_from_home">150dp</dimen>
+    <dimen name="dimen_bottom_nav_icon_size">40dp</dimen>
 </resources>

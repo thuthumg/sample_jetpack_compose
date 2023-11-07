@@ -133,7 +133,9 @@ private fun OfferTopAppBar() {
                 text = stringResource(R.string.lbl_offer),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                fontSize = fontDimensionResource(id = R.dimen.text_regular_3x)
+
             )
         })
 }
@@ -146,10 +148,10 @@ private fun EachDiscountItemLayout(
     Card(
         modifier = Modifier
             .fillMaxSize()
-            .padding(dimensionResource(id = R.dimen.margin_medium)).
-            clickable{
-            onDiscountItemClick(discountCardItemVO)
-        },
+            .padding(dimensionResource(id = R.dimen.margin_medium))
+            .clickable {
+                onDiscountItemClick(discountCardItemVO)
+            },
 
         shape = RoundedCornerShape(
             topStart = dimensionResource(id = R.dimen.dimen_card_corner_radius),
