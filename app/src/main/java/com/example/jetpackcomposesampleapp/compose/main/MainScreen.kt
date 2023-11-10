@@ -26,6 +26,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.jetpackcomposesampleapp.MainViewModel
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
 import com.example.jetpackcomposesampleapp.data.vos.DiscountCardItemVO
@@ -36,9 +37,11 @@ import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    onCategoryItemClick : (CategoryItemVO)->Unit,
-    onSeeAllClick : ()-> Unit,
-    onDiscountItemClick : (DiscountCardItemVO) -> Unit
+    onCategoryItemClick: (CategoryItemVO) -> Unit,
+    onSeeAllClick: () -> Unit,
+    onDiscountItemClick: (DiscountCardItemVO) -> Unit,
+    onCreateCategoryClick: () -> Unit,
+    viewModel: MainViewModel
 ) {
     val childNavController = rememberNavController()
     Surface(
@@ -74,7 +77,9 @@ fun MainScreen(
                     navController = childNavController,
                     onCategoryItemClick = onCategoryItemClick,
                     onSeeAllClick = onSeeAllClick,
-                    onDiscountItemClick = onDiscountItemClick)
+                    onDiscountItemClick = onDiscountItemClick,
+                    onCreateCategoryClick = onCreateCategoryClick,
+                    viewModel)
             }
 
 

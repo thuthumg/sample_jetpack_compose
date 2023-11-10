@@ -295,14 +295,23 @@ val productList: List<EachGroceryItemVO> = listOf(
    )
 
 
-var categoriesList: List<CategoryItemVO> = listOf(
+/*var categoriesList: List<CategoryItemVO> = listOf(
     CategoryItemVO(1,"Vegetables", R.drawable.vegetable_icon),
     CategoryItemVO(2,"Fruits", R.drawable.fruit_icon),
     CategoryItemVO(3,"Meat", R.drawable.meat_icon),
     CategoryItemVO(4,"Milk & Egg", R.drawable.milk_products_icon),
     CategoryItemVO(5,"Fish", R.drawable.fish_icon),
     CategoryItemVO(6,"Drinks", R.drawable.drink_icon),
-    CategoryItemVO(7,"Cake", R.drawable.cake_icon))
+    CategoryItemVO(7,"Cake", R.drawable.cake_icon))*/
+
+var categoriesList: List<CategoryItemVO> = listOf(
+    CategoryItemVO(1,"Vegetables", R.drawable.vegetable_icon, arrayListOf(1,2,3,4)),
+    CategoryItemVO(2,"Fruits", R.drawable.fruit_icon, arrayListOf(1,2,3,4)),
+    CategoryItemVO(3,"Meat", R.drawable.meat_icon, arrayListOf(1,2,3,4)),
+    CategoryItemVO(4,"Milk & Egg", R.drawable.milk_products_icon, arrayListOf(1,2,3,4)),
+    CategoryItemVO(5,"Fish", R.drawable.fish_icon, arrayListOf(1,2,3,4)),
+    CategoryItemVO(6,"Drinks", R.drawable.drink_icon, arrayListOf(1,2,3,4)),
+    CategoryItemVO(7,"Cake", R.drawable.cake_icon, arrayListOf(1,2,3,4)))
 
 
 var discountCardItemList: List<DiscountCardItemVO> = listOf(

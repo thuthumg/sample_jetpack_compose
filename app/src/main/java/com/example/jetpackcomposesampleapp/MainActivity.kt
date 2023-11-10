@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,33 +16,39 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.jetpackcomposesampleapp.compose.category.CategoriesScreen
-import com.example.jetpackcomposesampleapp.compose.category.EachGroceryItemListScreen
+import com.example.jetpackcomposesampleapp.compose.category.CategoryScreen
+import com.example.jetpackcomposesampleapp.compose.category.ProductItemListScreen
 import com.example.jetpackcomposesampleapp.compose.detail.DetailScreen
 import com.example.jetpackcomposesampleapp.compose.main.MainScreen
 import com.example.jetpackcomposesampleapp.compose.offer.discountdetail.DiscountDetail
+import com.example.jetpackcomposesampleapp.compose.setting.CreateCategoryScreen
 import com.example.jetpackcomposesampleapp.ui.theme.GroceryAppTheme
 
 class MainActivity : ComponentActivity() {
+
+
+    private val viewModel: MainViewModel by viewModels()
+
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             GroceryAppTheme {
-                GroceryApp()
+                GroceryApp(viewModel)
             }
         }
     }
 
     @Composable
-    private fun GroceryApp() {
+    private fun GroceryApp(viewModel: MainViewModel) {
         val navController = rememberNavController()
         // MainScreen(navController = navController)
-        GroceryNavHost(navController = navController)
+        GroceryNavHost(navController = navController,viewModel)
 
     }
 
     @Composable
-    fun GroceryNavHost(navController: NavHostController) {
+    fun GroceryNavHost(navController: NavHostController, viewModel: MainViewModel) {
         val activity = (LocalContext.current as Activity)
         NavHost(navController = navController, startDestination = "main") {
             composable("main") {
@@ -49,42 +56,66 @@ class MainActivity : ComponentActivity() {
                    // navController = navController,
                     onCategoryItemClick = {
                         Log.d("main act","check category id ${it.categoryId}")
-                        navController.navigate("categoryDetail/${it.categoryId}/productList")
+                        navController.navigate("categoryDetail/${it.categoryId}/${it.categoryName}/productList")
                     },
                     onSeeAllClick = {
                         navController.navigate("categoryList")
                     },
                     onDiscountItemClick = {
                         navController.navigate("discountDetail/${it.discountId}/discountList")
-                    }
+                    },
+                    onCreateCategoryClick = {
+                        navController.navigate("createCategory")
+                    },
+                    viewModel
+                )
+            }
+            composable(
+                "createCategory",
+
+                ) {
+                CreateCategoryScreen(
                 )
             }
             composable(
                 "categoryList",
 
                 ) {
-                CategoriesScreen(
+                CategoryScreen(
                     onBackClick = { navController.navigateUp() },
                     onCategoryItemClick = {
-                        navController.navigate("categoryDetail/${it.categoryId}/productList")
+
+                     //   val bundle = Bundle()
+                     //   bundle.putString("amount", it.categoryName)
+
+                        navController.navigate("categoryDetail/${it.categoryId}/${it.categoryName}/productList")
                     }
                 )
             }
             composable(
-                "categoryDetail/{categoryId}/productList",
+                "categoryDetail/{categoryId}/{categoryName}/productList",
                 arguments = listOf(navArgument("categoryId") {
                     type = NavType.StringType
+                }, navArgument("categoryName"){
+                    type = NavType.StringType
                 })
-            ) {
+            ) {it->
+                val categoryName =
+                    it.arguments?.get("categoryName") as String
 
+                val categoryIdParam =
+                    it.arguments?.get("categoryId") as String
 
-                EachGroceryItemListScreen(
+                ProductItemListScreen(
+
                     onBackClick = { navController.navigateUp() },
                     onGroceryItemClick = { productItemVO, categoryId ->
                         navController.navigate(
                             "categoryDetail/${categoryId}/productList/${productItemVO.itemId}/productDetail"
                         )
-                    }
+                    },
+                    categoryName,
+                    categoryIdParam
                 )
             }
             composable(

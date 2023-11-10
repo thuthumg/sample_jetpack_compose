@@ -19,6 +19,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.jetpackcomposesampleapp.MainViewModel
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
@@ -40,7 +43,8 @@ import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 @Composable
 fun CategoriesListView(
     onCategoryItemClick: (CategoryItemVO) -> Unit,
-    onSeeAllClick: () -> Unit
+    onSeeAllClick: () -> Unit,
+    viewModel: MainViewModel
 ) {
     val context = LocalContext.current
     Card(
@@ -68,7 +72,7 @@ fun CategoriesListView(
 
             CategoryCardTitleView(context, onSeeAllClick)
             HorizontalDividerView()
-            CategoryItemListView(onCategoryItemClick)
+            CategoryItemListView(onCategoryItemClick,viewModel)
 
         }
 
@@ -153,13 +157,22 @@ fun HorizontalDividerView() {
 }
 
 @Composable
-private fun CategoryItemListView(onCategoryItemClick: (CategoryItemVO) -> Unit) {
+private fun CategoryItemListView(
+    onCategoryItemClick: (CategoryItemVO) -> Unit,
+    viewModel: MainViewModel
+) {
+
+
+  //  val posts = viewModel.posts.value
+
+    val posts = categoriesList
+
     LazyRow(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = dimensionResource(id = R.dimen.margin_small))
     ) {
-        items(categoriesList.size) { position ->
+        items(posts.size) { position ->
 
             Column(
                 modifier = Modifier
@@ -171,12 +184,18 @@ private fun CategoryItemListView(onCategoryItemClick: (CategoryItemVO) -> Unit) 
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CategoryImageView(imagePainter = painterResource(id = categoriesList[position].categoryImage))
+                posts[position].categoryImage?.let { it1 ->painterResource(id = it1) }
+                    ?.let { CategoryImageView(imagePainter = it) }
                 CategoryNameTextView(position)
             }
 
 
         }
+    }
+
+    DisposableEffect(Unit){
+        viewModel.getPosts()
+        onDispose {  }
     }
 }
 

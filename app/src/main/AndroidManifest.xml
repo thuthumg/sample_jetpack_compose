@@ -11,12 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JetpackComposeSampleApp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".compose.category.EachGroceryItemListActivity"
-            android:exported="false"
-            android:label="@string/title_activity_each_grocery_item_list"
-            android:theme="@style/Theme.JetpackComposeSampleApp" />
+
         <activity
             android:name=".compose.offer.discountdetail.DiscountDetailActivity"
             android:exported="false"
@@ -32,12 +29,7 @@
             android:exported="false"
             android:label="@string/title_activity_cart"
             android:theme="@style/Theme.JetpackComposeSampleApp" />
-        <activity
-            android:name=".compose.category.CategoriesActivity"
-            android:exported="false"
-            android:label="@string/title_activity_categories"
-            android:theme="@style/Theme.JetpackComposeSampleApp" />
-        <activity
+          <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
+import com.example.jetpackcomposesampleapp.MainViewModel
 import com.example.jetpackcomposesampleapp.R
 import com.example.jetpackcomposesampleapp.data.vos.CategoryItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
@@ -19,7 +20,8 @@ import com.example.jetpackcomposesampleapp.ui.theme.AppBackgroundColor
 fun HomeBodyView(
     innerPadding: PaddingValues,
     onCategoryItemClick: (CategoryItemVO) -> Unit,
-    onSeeAllClick: () -> Unit
+    onSeeAllClick: () -> Unit,
+    viewModel: MainViewModel
 ) {
     Card(
         modifier = Modifier
@@ -53,7 +55,7 @@ fun HomeBodyView(
 
             item {
 
-                HomeBodyListView(onCategoryItemClick, onSeeAllClick)
+                HomeBodyListView(onCategoryItemClick, onSeeAllClick,viewModel)
             }
 
 

@@ -153,16 +153,16 @@ fun SimilarProductEachItem(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            ProductImageSection(productItemVO.itemImage)
-            ProductNameSection(productItemVO.itemName)
-            ProductPriceAndUnitSection(productItemVO.itemUnit)
-            ProductPriceAndAddButtonSection(productItemVO.itemPrice)
+            ProductImageView(productItemVO.itemImage)
+            ProductNameView(productItemVO.itemName)
+            ProductPriceAndUnitView(productItemVO.itemUnit)
+            ProductPriceAndAddButtonView(productItemVO.itemPrice)
         }
     }
 }
 
 @Composable
-private fun ProductImageSection(productImage: Int) {
+private fun ProductImageView(productImage: Int) {
     Image(
         modifier = Modifier
             .width(dimensionResource(id = R.dimen.dimen_similar_product_img_width))
@@ -173,7 +173,7 @@ private fun ProductImageSection(productImage: Int) {
 }
 
 @Composable
-private fun ProductNameSection(productName: String) {
+private fun ProductNameView(productName: String) {
     Text(
         text = productName ?: "",
         modifier = Modifier
@@ -193,7 +193,7 @@ private fun ProductNameSection(productName: String) {
 }
 
 @Composable
-private fun ProductPriceAndUnitSection(productUnit: String) {
+private fun ProductPriceAndUnitView(productUnit: String) {
     Text(
         text = productUnit,
         modifier = Modifier
@@ -213,7 +213,7 @@ private fun ProductPriceAndUnitSection(productUnit: String) {
 }
 
 @Composable
-private fun ProductPriceAndAddButtonSection(productPrice: String) {
+private fun ProductPriceAndAddButtonView(productPrice: String) {
     Row(
         modifier = Modifier
             .padding(0.dp)
