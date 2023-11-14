@@ -1,55 +1,36 @@
 package com.example.jetpackcomposesampleapp.compose.detail
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
+import com.example.jetpackcomposesampleapp.compose.category.ProductItemView
 import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
 //import com.example.jetpackcomposesampleapp.data.vos.ProductItemVO
-import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 import com.example.jetpackcomposesampleapp.util.fontDimensionResource
 import com.example.jetpackcomposesampleapp.util.productList
 
-@Preview
-@Composable
-fun SimilarProductsView() {
-    SimilarProductsSection()
-}
 
 @Composable
-private fun SimilarProductsSection() {
+fun SimilarProductsView(
+    onIncreaseClickListener: ((EachGroceryItemVO) -> Unit)?,
+    onDecreaseClickListener: ((EachGroceryItemVO) -> Unit)?
+) {
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -67,17 +48,22 @@ private fun SimilarProductsSection() {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-
-            SimilarProductTitleSection()
-            SimilarProductItemList()
-
+            SimilarProductTitleView()
+            onIncreaseClickListener?.let {
+                onDecreaseClickListener?.let { it1 ->
+                    SimilarProductItemListView(
+                        onIncreaseClickListener = it,
+                        onDecreaseClickListener = it1
+                    )
+                }
+            }
         }
     }
 
 }
 
 @Composable
-private fun SimilarProductTitleSection() {
+private fun SimilarProductTitleView() {
     Text(
         text = stringResource(R.string.similar_products),
         modifier = Modifier
@@ -98,7 +84,10 @@ private fun SimilarProductTitleSection() {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun SimilarProductItemList() {
+private fun SimilarProductItemListView(
+    onIncreaseClickListener: (EachGroceryItemVO) -> Unit,
+    onDecreaseClickListener: (EachGroceryItemVO) -> Unit
+) {
 
 //    val productList: List<ProductItemVO> = listOf(
 //        ProductItemVO(1,"Banana","1.60","$0.20/pc", R.drawable.banana_img,100),
@@ -124,166 +113,22 @@ private fun SimilarProductItemList() {
 //rows * columns
         repeat(productList.size) {position->
 
-            SimilarProductEachItem(itemModifier, productList[position], null)
+            ProductItemView(
+                modifier = itemModifier,
+                eachProductItem = productList[position],
+                onEachProductItemClick = null,
+                addToCartButtonChange = null,
+                changeProductItemVO = EachGroceryItemVO(
+                    itemId = 0,
+                    itemName = "",
+                    itemImage =0,
+                    itemPrice = "0.0",
+                    itemUnit = "$0.00/pc",
+                    itemQuantity = 0,
+                    itemCategoryType = ""),// addButtonChangeUI
+                onIncreaseClickListener = onIncreaseClickListener,
+                onDecreaseClickListener = onDecreaseClickListener
+            )
         }
-    }
-}
-
-@Composable
-fun SimilarProductEachItem(
-    modifier: Modifier,
-    productItemVO: EachGroceryItemVO,
-    onGroceryItemClick: ((EachGroceryItemVO, Int) -> Unit)?
-) {
-    Card(
-        modifier = modifier
-            .border(1.dp, Color.Gray.copy(0.1f)).clickable {
-                if (onGroceryItemClick != null) {
-                    onGroceryItemClick(productItemVO,1)
-                }
-            },
-        shape = RoundedCornerShape(0.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-        ),
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            ProductImageView(productItemVO.itemImage)
-            ProductNameView(productItemVO.itemName)
-            ProductPriceAndUnitView(productItemVO.itemUnit)
-            ProductPriceAndAddButtonView(productItemVO.itemPrice)
-        }
-    }
-}
-
-@Composable
-private fun ProductImageView(productImage: Int) {
-    Image(
-        modifier = Modifier
-            .width(dimensionResource(id = R.dimen.dimen_similar_product_img_width))
-            .height(dimensionResource(id = R.dimen.dimen_similar_product_img_height)),
-        painter = painterResource(id = productImage),
-        contentDescription = null,
-    )
-}
-
-@Composable
-private fun ProductNameView(productName: String) {
-    Text(
-        text = productName ?: "",
-        modifier = Modifier
-            .padding(
-                start = dimensionResource(id = R.dimen.margin_medium_3),
-                top = dimensionResource(id = R.dimen.margin_card_medium),
-                end = 0.dp,
-                bottom = 0.dp
-            )
-            .fillMaxWidth(),
-        color = Color.Black,
-        fontSize = fontDimensionResource(id = R.dimen.text_regular),
-        fontWeight = FontWeight.Bold,
-        textAlign = TextAlign.Start,
-
-        )
-}
-
-@Composable
-private fun ProductPriceAndUnitView(productUnit: String) {
-    Text(
-        text = productUnit,
-        modifier = Modifier
-            .padding(
-                start = dimensionResource(id = R.dimen.margin_medium_3),
-                top = dimensionResource(id = R.dimen.margin_card_medium),
-                end = 0.dp,
-                bottom = 0.dp
-            )
-            .fillMaxWidth(),
-        color = Color.Gray.copy(0.5f),
-        fontSize = fontDimensionResource(id = R.dimen.text_small),
-        fontWeight = FontWeight.W600,
-        textAlign = TextAlign.Start,
-
-        )
-}
-
-@Composable
-private fun ProductPriceAndAddButtonView(productPrice: String) {
-    Row(
-        modifier = Modifier
-            .padding(0.dp)
-            .fillMaxSize(),
-        //horizontalArrangement = Arrangement.SpaceEvenly,
-        //  verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "$${productPrice}",
-            modifier = Modifier
-                .padding(
-                    start = dimensionResource(id = R.dimen.margin_medium_3),
-                    top = dimensionResource(id = R.dimen.margin_card_medium),
-                    end = 0.dp,
-                    bottom = 0.dp
-                ),
-
-            color = AppMainColor,
-            fontSize = fontDimensionResource(id = R.dimen.text_regular),
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Start,
-
-            )
-        AddItemSection()
-
-    }
-
-}
-@Composable
-private fun AddItemSection() {
-    Box(
-        modifier = Modifier
-            .padding(0.dp)
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Button(
-            modifier = Modifier
-                .padding(0.dp)
-                .align(Alignment.BottomEnd),// Align to the bottom right
-            onClick = {
-                // Action to Perform
-            }, colors = ButtonDefaults.buttonColors(
-                containerColor = AppMainColor,
-                contentColor = Color.White,
-                disabledContainerColor = Color.Gray.copy(0.5f),
-                disabledContentColor = Color.White
-            ),
-            shape = RoundedCornerShape(
-                topStartPercent = 30,
-                topEndPercent = 0,
-                bottomEndPercent = 0,
-                bottomStartPercent = 0
-            ), // Can add RoundedCorner etc
-            //  border = BorderStroke(width = 2.dp, color = Color.Blue),
-            content = {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    tint = Color.White, contentDescription = ""
-                )
-            },
-            contentPadding = PaddingValues(
-                start = 2.dp,
-                top = 2.dp,
-                end = 2.dp,
-                bottom = 2.dp,
-            )
-
-        )
-
-
     }
 }

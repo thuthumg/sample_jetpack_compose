@@ -36,13 +36,7 @@ import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 
 @Preview
 @Composable
-fun ProductDetailInformationView(){
-    ItemInformationSection()
-}
-
-
-@Composable
-private fun ItemInformationSection() {
+fun ProductDetailInformationView() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,8 +54,8 @@ private fun ItemInformationSection() {
         ) {
         Column(modifier = Modifier.padding(12.dp)) {
 
-            ProductNameInfoSection()
-            ProductUnitInfoSection()
+            ProductNameInfoView()
+            ProductUnitInfoView()
            //ProductPriceCaloriesAndRating
             Row(
                 modifier = Modifier
@@ -70,9 +64,9 @@ private fun ItemInformationSection() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
 
-                ProductPriceInfoSection()
-                ProductCaloriesInfoSection()
-                ProductRatingInfoSection()
+                ProductPriceInfoView()
+                ProductCaloriesInfoView()
+                ProductRatingInfoView()
             }
 
             //ItemQuantityIncreaseDecrease
@@ -83,9 +77,9 @@ private fun ItemInformationSection() {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                ItemQuantityIncreaseSection()
-                ItemQuantityCountSection()
-                ItemQuantityDecreaseSection()
+                ItemQuantityIncreaseView()
+                ItemQuantityCountView()
+                ItemQuantityDecreaseView()
             }
         }
     }
@@ -93,7 +87,7 @@ private fun ItemInformationSection() {
 
 
 @Composable
-private fun ItemQuantityDecreaseSection() {
+private fun ItemQuantityDecreaseView() {
     Box(
         modifier = Modifier
             .clip(
@@ -118,7 +112,7 @@ private fun ItemQuantityDecreaseSection() {
 }
 
 @Composable
-private fun ItemQuantityCountSection() {
+private fun ItemQuantityCountView() {
     Text(
 
         text = "1 kg",
@@ -133,7 +127,7 @@ private fun ItemQuantityCountSection() {
 }
 
 @Composable
-private fun ItemQuantityIncreaseSection() {
+private fun ItemQuantityIncreaseView() {
     Box(
         modifier = Modifier
             .clip(
@@ -158,7 +152,7 @@ private fun ItemQuantityIncreaseSection() {
 }
 
 @Composable
-private fun ProductRatingInfoSection() {
+private fun ProductRatingInfoView() {
     Row(
         horizontalArrangement = Arrangement.Center
     ) {
@@ -194,7 +188,7 @@ private fun ProductRatingInfoSection() {
 }
 
 @Composable
-private fun ProductCaloriesInfoSection() {
+private fun ProductCaloriesInfoView() {
     Text(
         text = "14 Calories",
         modifier = Modifier
@@ -208,7 +202,7 @@ private fun ProductCaloriesInfoSection() {
 }
 
 @Composable
-private fun ProductPriceInfoSection() {
+private fun ProductPriceInfoView() {
     Text(
         text = "$17.20",
         modifier = Modifier
@@ -222,7 +216,7 @@ private fun ProductPriceInfoSection() {
 }
 
 @Composable
-private fun ProductUnitInfoSection() {
+private fun ProductUnitInfoView() {
     Text(
         text = "$17.00/kg",
         modifier = Modifier
@@ -237,7 +231,7 @@ private fun ProductUnitInfoSection() {
 }
 
 @Composable
-private fun ProductNameInfoSection() {
+private fun ProductNameInfoView() {
     Text(
         text = "Meat",
         modifier = Modifier

@@ -1,5 +1,6 @@
 package com.example.jetpackcomposesampleapp.compose.category
 
+import android.util.Log
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -9,14 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
-//import com.example.jetpackcomposesampleapp.data.vos.ProductItemVO
 import com.example.jetpackcomposesampleapp.ui.theme.AppMainColor
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductItemListScreen(
     onBackClick: () -> Unit,
@@ -24,6 +24,21 @@ fun ProductItemListScreen(
     categoryName: String,
     categoryIdParam: String
 ) {
+
+
+    var addButtonChangeUI  by rememberSaveable {
+        mutableStateOf("")
+    }
+    var changeProductItemVO by remember { mutableStateOf(
+        EachGroceryItemVO(
+        itemId = 0,
+        itemName = "",
+        itemImage =0,
+        itemPrice = "0.0",
+        itemUnit = "$0.00/pc",
+        itemQuantity = 0,
+        itemCategoryType = "")) }
+
     val mContext = LocalContext.current
     var showCustomBackDialog by remember { mutableStateOf(false) }
 
@@ -38,7 +53,41 @@ fun ProductItemListScreen(
         color = AppMainColor
     ) {
 
-        ProductItemListLayout(onBackClick,onGroceryItemClick,categoryName,categoryIdParam)
+
+        ProductItemListLayout(
+            onBackClick,
+            onGroceryItemClick,
+            categoryName,
+            categoryIdParam,
+            addToCartButtonChange = { changeStatus, productItemVO->
+               /* addButtonChangeUI = "true"
+                productItemVO.selectedItemQuantity += 1
+                changeProductItemVO = productItemVO*/
+            },
+            changeProductItemVO,
+            onIncreaseClickListener = {
+
+              /*  Log.d("ProductItemListScreen","onIncrease click listener")
+                addButtonChangeUI = "true"
+                it.selectedItemQuantity += 1
+
+                Log.d("ProductItemListScreen","check selected item count = ${it.selectedItemQuantity}")
+                changeProductItemVO = it
+*/
+
+            },
+            onDecreaseClickListener = {
+               /* addButtonChangeUI = "true"
+                if(it.selectedItemQuantity <=0)
+                {
+                    it.selectedItemQuantity = 0
+                }else{
+                    it.selectedItemQuantity -= 1
+                }
+
+                changeProductItemVO = it*/
+            }
+        )
 
 
     }
@@ -51,7 +100,11 @@ fun ProductItemListLayout(
     onBackClick: () -> Unit,
     onGroceryItemClick: (EachGroceryItemVO, Int) -> Unit,
     categoryName: String,
-    categoryIdParam: String
+    categoryIdParam: String,
+    addToCartButtonChange: (String, EachGroceryItemVO) -> Unit,
+    changeProductItemVO: EachGroceryItemVO,
+    onIncreaseClickListener: (EachGroceryItemVO) -> Unit,
+    onDecreaseClickListener: (EachGroceryItemVO) -> Unit
 ) {
     Scaffold(
         containerColor = AppMainColor,
@@ -60,36 +113,12 @@ fun ProductItemListLayout(
         }
     ){ innerPadding->
 
-        /*  if(showCustomBackDialog)
-
-          {
-              AlertDialog(
-                  onDismissRequest = {
-                  showCustomBackDialog = false
-              },
-                  title = { Text("Custom Back Press Dialog") },
-                  text = { Text("Do you really want to go back?") },
-                  confirmButton = {
-                      TextButton(
-                          onClick = {
-                              showCustomBackDialog = false
-                      }) {
-                          Text("Yes")
-                      }
-                  },
-                  dismissButton = {
-                      TextButton(
-                          onClick = {
-                              showCustomBackDialog = false
-                          }) {
-                          Text("No")
-                      }
-                  }
-
-              )
-          }*/
         ProductsListBodyView(
-            innerPadding,onGroceryItemClick,categoryIdParam
+            innerPadding,onGroceryItemClick,categoryIdParam,
+            addToCartButtonChange,
+            changeProductItemVO,
+            onIncreaseClickListener,
+            onDecreaseClickListener
         )
 
 

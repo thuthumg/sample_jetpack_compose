@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitInstance {
 
     private
-    const val BASE_URL = "http://10.2.147.66:9090/"
+    const val BASE_URL = "http://206.189.153.3:8080/grocery-0.0.1/" // //
     val api: ApiService by lazy {
 
         val httpLoggingInterceptor1 = HttpLoggingInterceptor()

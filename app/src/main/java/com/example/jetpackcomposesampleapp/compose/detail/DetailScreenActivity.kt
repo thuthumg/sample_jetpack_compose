@@ -19,7 +19,6 @@ class DetailScreenActivity : ComponentActivity() {
     companion object {
         private const val PAGE_CHANGE_STATUS = "PAGE_CHANGE_STATUS"
 
-
         fun newIntent(
             context: Context,
             pageChangeStatus: Boolean): Intent {

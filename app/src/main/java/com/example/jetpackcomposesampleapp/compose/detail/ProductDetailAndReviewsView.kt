@@ -62,14 +62,9 @@ import kotlinx.coroutines.launch
 
 
 @Preview
-@Composable
-fun ProductDetailAndReviewsView(){
-    DetailAndReviewsSection()
-}
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-private fun DetailAndReviewsSection() {
+fun ProductDetailAndReviewsView() {
 
     Card(
         modifier = Modifier
@@ -188,13 +183,13 @@ private fun DetailTabContentScreen() {
     )
     val paragraphStyle = ParagraphStyle(textIndent = TextIndent(restLine = 12.sp))
 
-    ProductDescriptionSection(messages, paragraphStyle, bullet)
+    ProductDescriptionView(messages, paragraphStyle, bullet)
 
 
 }
 
 @Composable
-private fun ProductDescriptionSection(
+private fun ProductDescriptionView(
     messages: List<String>,
     paragraphStyle: ParagraphStyle,
     bullet: String
@@ -250,11 +245,11 @@ private fun ProductDescriptionSection(
 
 @Composable
 private fun ReviewsTabContentScreen() {
-    ProductItemReviewListSection()
+    ProductItemReviewListView()
 }
 
 @Composable
-private fun ProductItemReviewListSection() {
+private fun ProductItemReviewListView() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -276,28 +271,28 @@ private fun ProductItemReviewListSection() {
                 .padding(top = dimensionResource(R.dimen.margin_card_medium_2)),
         ) {
             repeat(5) { index ->
-                ReviewEachItemSection()
+                ReviewEachItemView()
             }
         }
     }
 }
 
 @Composable
-private fun ReviewEachItemSection() {
+private fun ReviewEachItemView() {
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
     ) {
-        ProfileAndRatingSection()
-        ReviewDescriptionSection()
+        ProfileAndRatingView()
+        ReviewDescriptionView()
     }
 
 }
 
 @Composable
-private fun ReviewDescriptionSection() {
+private fun ReviewDescriptionView() {
     Text(
         text = "The dial on this timepiece is extremely unique, as it is a concentric circular pattern that is covered by sturdy sapphire glass",
         modifier = Modifier
@@ -312,7 +307,7 @@ private fun ReviewDescriptionSection() {
 }
 
 @Composable
-private fun ProfileAndRatingSection() {
+private fun ProfileAndRatingView() {
     Row {
         ProfileImageSection()
         Spacer(modifier = Modifier.width(10.dp))
@@ -320,14 +315,14 @@ private fun ProfileAndRatingSection() {
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
-            ProfileNameSection()
-            RatingAndDateSection()
+            ProfileNameView()
+            RatingAndDateView()
         }
     }
 }
 
 @Composable
-private fun ProfileNameSection() {
+private fun ProfileNameView() {
     Text(
         text = "Victor Flexin",
         modifier = Modifier
@@ -356,7 +351,7 @@ private fun ProfileImageSection() {
 
 
 @Composable
-private fun RatingAndDateSection() {
+private fun RatingAndDateView() {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

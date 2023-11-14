@@ -7,5 +7,6 @@ data class EachGroceryItemVO(
     val itemPrice: String,
     val itemUnit: String,
     val itemQuantity: Int,
-    val itemCategoryType:String
+    val itemCategoryType:String,
+    var selectedItemQuantity:Int = 0
 )

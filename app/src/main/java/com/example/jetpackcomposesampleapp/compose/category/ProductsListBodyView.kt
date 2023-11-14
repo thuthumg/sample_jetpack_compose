@@ -1,6 +1,5 @@
 package com.example.jetpackcomposesampleapp.compose.category
 
-import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,11 +11,9 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposesampleapp.R
-import com.example.jetpackcomposesampleapp.compose.detail.SimilarProductEachItem
 import com.example.jetpackcomposesampleapp.data.vos.EachGroceryItemVO
 import com.example.jetpackcomposesampleapp.util.productList
 
@@ -24,18 +21,35 @@ import com.example.jetpackcomposesampleapp.util.productList
 fun ProductsListBodyView(
     innerPadding: PaddingValues,
     onGroceryItemClick: (EachGroceryItemVO, Int) -> Unit,
-    categoryIdParam: String
+    categoryIdParam: String,
+    addToCartButtonChange: (String,EachGroceryItemVO) -> Unit,
+    changeProductItemVO: EachGroceryItemVO,
+
+    onIncreaseClickListener : (EachGroceryItemVO) -> Unit,
+    onDecreaseClickListener : (EachGroceryItemVO) -> Unit
 ) {
 
-    EachProductItemView(innerPadding,onGroceryItemClick,categoryIdParam)
+    ProductsListView(
+        innerPadding,
+        onGroceryItemClick,
+        categoryIdParam,
+        addToCartButtonChange,
+        changeProductItemVO,
+        onIncreaseClickListener ,
+        onDecreaseClickListener
+    )
 
 }
 
 @Composable
-private fun EachProductItemView(
+private fun ProductsListView(
     innerPadding: PaddingValues,
     onGroceryItemClick: (EachGroceryItemVO, Int) -> Unit,
     categoryIdParam: String,
+    addToCartButtonChange: (String,EachGroceryItemVO) -> Unit,
+    changeProductItemVO: EachGroceryItemVO,
+    onIncreaseClickListener : (EachGroceryItemVO) -> Unit,
+    onDecreaseClickListener : (EachGroceryItemVO) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -69,7 +83,14 @@ private fun EachProductItemView(
 
                 items(listdata.size) { position->
 
-                    EachGroceryItem(listdata, position, LocalContext.current,onGroceryItemClick)
+                    ProductItemView(
+                        modifier = Modifier,
+                        eachProductItem = listdata[position],
+                        onEachProductItemClick = onGroceryItemClick,
+                        addToCartButtonChange = addToCartButtonChange,
+                        changeProductItemVO = changeProductItemVO,
+                        onIncreaseClickListener = onIncreaseClickListener,
+                        onDecreaseClickListener = onDecreaseClickListener)
 
                 }
             } )
@@ -80,12 +101,3 @@ private fun EachProductItemView(
 
 
 
-@Composable
-private fun EachGroceryItem(
-    itemList: List<EachGroceryItemVO>,
-    it: Int,
-    current: Context,
-    onGroceryItemClick: (EachGroceryItemVO, Int) -> Unit,
-) {
-    SimilarProductEachItem(Modifier,itemList[it],onGroceryItemClick)
-}
